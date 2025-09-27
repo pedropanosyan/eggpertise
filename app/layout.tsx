@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   description:
     "Desde EggPertise acercamos la innovación tecnológica global a productores avícolas y porcinos de Latinoamérica, combinando asesoramiento personalizado y soluciones integrales.",
   generator: "v0.app",
+  icons: {
+    icon: "/brand/favicon.png",
+    shortcut: "/brand/favicon.png",
+    apple: "/brand/favicon.png",
+  },
 };
 
 export default function RootLayout({

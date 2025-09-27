@@ -9,6 +9,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^16.1.5",
+    "@contentful/rich-text-types": "^17.2.4",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
@@ -42,8 +44,9 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
+    "contentful": "^11.8.1",
     "date-fns": "4.1.0",
-    "embla-carousel-react": "8.5.1",
+    "embla-carousel-react": "^8.5.1",
     "geist": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",

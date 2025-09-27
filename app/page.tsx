@@ -6,8 +6,11 @@ import { ServicesSection } from "@/components/services-section";
 import { DistributorsSection } from "@/components/distributors-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
+import { getFabricantes } from "@/lib/contentful";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const distributors = await getFabricantes();
+
   return (
     <main className="min-h-screen">
       <Header />
@@ -15,7 +18,7 @@ export default function HomePage() {
       <AboutSection />
       <ServicesSection />
       <AchievementsBanner />
-      <DistributorsSection />
+      <DistributorsSection distributors={distributors} />
       <ContactSection />
       <Footer />
     </main>
