@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -74,15 +76,19 @@ export default async function DistributorPage({ params }: PageProps) {
 
       {/* About Section */}
       <section className="py-20 bg-background">
+        <div className="mb-6">
+          <div className="relative mx-auto h-16 w-48 sm:h-20 sm:w-64">
+            <Image
+              src={distributor.logo}
+              alt={`${distributor.nombre} logo`}
+              fill
+              className="object-contain drop-shadow-md"
+              priority
+            />
+          </div>
+        </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
-                Sobre {distributor.nombre}
-              </h2>
-              <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
-            </div>
-
             <div className="prose prose-lg prose-slate max-w-none mx-auto">
               {documentToReactComponents(
                 distributor.descripcion_larga,

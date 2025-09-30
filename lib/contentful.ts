@@ -313,7 +313,6 @@ export async function getFabricanteBySlug(
 
     // Fetch products for this fabricante
     const productos = await getProductosByFabricante(fabricante.id);
-
     return {
       ...fabricante,
       productos,
