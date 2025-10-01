@@ -49,22 +49,44 @@ export function ContactSection() {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-
-    // Reset form after successful submission
-    setTimeout(() => {
-      setFormData({
-        nombre: "",
-        email: "",
-        empresa: "",
-        mensaje: "",
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-      setIsSubmitted(false);
-    }, 3000);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Error al enviar el mensaje");
+      }
+
+      setIsSubmitted(true);
+
+      // Reset form after successful submission
+      setTimeout(() => {
+        setFormData({
+          nombre: "",
+          email: "",
+          empresa: "",
+          mensaje: "",
+        });
+        setIsSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setErrors({
+        mensaje:
+          error instanceof Error
+            ? error.message
+            : "Error al enviar el mensaje. Por favor intente nuevamente.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {

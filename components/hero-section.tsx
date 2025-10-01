@@ -33,7 +33,7 @@ export function HeroSection() {
                 className="px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
               >
                 <Link
-                  href="/distribuidoras"
+                  href="/#distribuidoras"
                   className="flex items-center gap-2"
                 >
                   Ver Distribuidoras

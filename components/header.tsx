@@ -6,15 +6,27 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/public/brand/logo.png";
+import { usePathname, useRouter } from "next/navigation";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLAnchorElement>,
     targetId: string
   ) => {
     e.preventDefault();
+    const isHome = pathname === "/";
+
+    if (!isHome) {
+      const hash = targetId === "top" ? "" : `#${targetId}`;
+      router.push(`/${hash}`);
+      setIsMenuOpen(false);
+      return;
+    }
+
     if (targetId === "top") {
       window.scrollTo({
         top: 0,
@@ -23,7 +35,7 @@ export function Header() {
     } else {
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        const headerHeight = 64; // Height of fixed header (h-16 = 64px)
+        const headerHeight = 64;
         const targetPosition = targetElement.offsetTop - headerHeight;
 
         window.scrollTo({
@@ -81,18 +93,16 @@ export function Header() {
               <span className="relative z-10">Distribuidoras</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
-
-            
           </nav>
           <Button
-              onClick={(e) => {
-                e.preventDefault();
-                handleSmoothScroll(e as any, "contacto");
-              }}
-              className="hidden md:inline-flex cursor-pointer"
-            >
-              Consultar
-            </Button>
+            onClick={(e) => {
+              e.preventDefault();
+              handleSmoothScroll(e as any, "contacto");
+            }}
+            className="hidden md:inline-flex cursor-pointer"
+          >
+            Consultar
+          </Button>
 
           {/* Mobile menu button */}
           <Button

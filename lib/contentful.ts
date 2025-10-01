@@ -55,6 +55,9 @@ const PRODUCTOS_BY_FABRICANTE_QUERY = `
       portada {
         url
       }
+      logoPortada {
+        url
+      }
     }
   }
 }
@@ -125,6 +128,7 @@ interface ProductoGraphQLResponse {
   nombre: string;
   descripcionCorta: string;
   portada: { url: string };
+  logoPortada: { url: string } | null;
 }
 
 interface FabricanteCompleteGraphQLResponse {
@@ -164,6 +168,7 @@ export interface Producto {
   nombre: string;
   descripcion_corta: string;
   imagen_portada: string;
+  logo_portada: string;
 }
 
 export interface Fabricante {
@@ -207,6 +212,7 @@ function parseProductoFromGraphQL(item: ProductoGraphQLResponse): Producto {
     nombre: item.nombre,
     descripcion_corta: item.descripcionCorta,
     imagen_portada: item.portada.url,
+    logo_portada: item.logoPortada?.url || item.portada.url,
   };
 }
 

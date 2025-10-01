@@ -123,7 +123,7 @@ export default async function DistributorPage({ params }: PageProps) {
                     {/* Product Image */}
                     <div className="relative h-56 overflow-hidden">
                       <Image
-                        src={producto.imagen_portada}
+                        src={producto.logo_portada}
                         alt={producto.nombre}
                         fill
                         className="object-cover"
