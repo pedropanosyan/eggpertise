@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: PageProps) {
       {/* About Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
                 Sobre {producto.nombre}
@@ -103,65 +103,50 @@ export default async function ProductPage({ params }: PageProps) {
             </div>
 
             <div className="prose prose-lg prose-slate max-w-none mx-auto">
+              {/* Gallery Carousel - Floated Right */}
+              {producto.imagenes && producto.imagenes.length > 0 && (
+                <div className="relative float-right ml-8 mb-8 w-full sm:w-2/3 lg:w-1/2">
+                  <Carousel
+                    opts={{
+                      align: "center",
+                      loop: true,
+                    }}
+                    className="w-full"
+                  >
+                    <CarouselContent className="-ml-2">
+                      {producto.imagenes.map((imagen, index) => (
+                        <CarouselItem key={index} className="pl-2 basis-full">
+                          <Card className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0">
+                            <div className="relative h-80 overflow-hidden">
+                              <Image
+                                src={imagen}
+                                alt={`${producto.nombre} - Imagen ${index + 1}`}
+                                fill
+                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                          </Card>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/20 backdrop-blur-md hover:bg-primary/30 border-primary/30 text-primary-foreground h-10 w-10" />
+                    <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/20 backdrop-blur-md hover:bg-primary/30 border-primary/30 text-primary-foreground h-10 w-10" />
+                  </Carousel>
+                </div>
+              )}
+
+              {/* Text Content */}
               {documentToReactComponents(
                 producto.descripcion_larga,
                 renderOptions
               )}
+
+              {/* Clear float to ensure subsequent content flows correctly */}
+              <div className="clear-both"></div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Gallery Section */}
-      {producto.imagenes && producto.imagenes.length > 0 && (
-        <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
-                  Galería de Imágenes
-                </h2>
-                <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
-                <p className="text-xl text-muted-foreground mt-6 max-w-2xl mx-auto">
-                  Descubre más detalles de {producto.nombre} en nuestra galería
-                </p>
-              </div>
-
-              <div className="relative max-w-4xl mx-auto">
-                <Carousel
-                  opts={{
-                    align: "center",
-                    loop: true,
-                  }}
-                  className="w-full"
-                >
-                  <CarouselContent className="-ml-2 md:-ml-4">
-                    {producto.imagenes.map((imagen, index) => (
-                      <CarouselItem
-                        key={index}
-                        className="pl-2 md:pl-4 basis-full md:basis-3/4 lg:basis-2/3"
-                      >
-                        <Card className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0">
-                          <div className="relative h-80 md:h-96 lg:h-[500px] overflow-hidden">
-                            <Image
-                              src={imagen}
-                              alt={`${producto.nombre} - Imagen ${index + 1}`}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
-                        </Card>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-primary/20 backdrop-blur-md hover:bg-primary/30 border-primary/30 text-primary-foreground h-12 w-12" />
-                  <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-primary/20 backdrop-blur-md hover:bg-primary/30 border-primary/30 text-primary-foreground h-12 w-12" />
-                </Carousel>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Contact Section */}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/10">

@@ -1,4 +1,4 @@
-export const revalidate = 0;
+export const revalidate = 300; // 5 minutes
 
 import { Header } from "@/components/header";
 import { HeroSection } from "@/components/hero-section";
@@ -17,10 +17,10 @@ export default async function HomePage() {
     <main className="min-h-screen">
       <Header />
       <HeroSection />
+      <DistributorsSection distributors={distributors} />
       <AboutSection />
       <ServicesSection />
       <AchievementsBanner />
-      <DistributorsSection distributors={distributors} />
       <ContactSection />
       <Footer />
     </main>

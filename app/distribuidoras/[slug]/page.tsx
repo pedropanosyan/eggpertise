@@ -1,4 +1,4 @@
-export const revalidate = 0;
+export const revalidate = 300; // 5 minutes
 
 import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import Logo from "@/public/brand/logo.png";
 import {
   getFabricanteBySlug,
   getAllFabricanteSlugs,
@@ -72,21 +73,20 @@ export default async function DistributorPage({ params }: PageProps) {
             </div>
           </div>
         </div>
+
+        {/* Logo Overlay - Bottom Right */}
+        <div className="absolute bottom-6 right-6 z-20">
+          <Image
+            src={distributor.logo}
+            alt="EggPertise"
+            width={400}
+            height={400}
+          />
+        </div>
       </section>
 
       {/* About Section */}
       <section className="py-20 bg-background">
-        <div className="mb-6">
-          <div className="relative mx-auto h-16 w-48 sm:h-20 sm:w-64">
-            <Image
-              src={distributor.logo}
-              alt={`${distributor.nombre} logo`}
-              fill
-              className="object-contain drop-shadow-md"
-              priority
-            />
-          </div>
-        </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg prose-slate max-w-none mx-auto">

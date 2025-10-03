@@ -78,19 +78,19 @@ export function Header() {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
             <a
-              href="#logros"
-              onClick={(e) => handleSmoothScroll(e, "logros")}
-              className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
-            >
-              <span className="relative z-10">Logros</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a
               href="#distribuidoras"
               onClick={(e) => handleSmoothScroll(e, "distribuidoras")}
               className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
             >
-              <span className="relative z-10">Distribuidoras</span>
+              <span className="relative z-10">Marcas/Productos</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a
+              href="#logros"
+              onClick={(e) => handleSmoothScroll(e, "logros")}
+              className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
+            >
+              <span className="relative z-10">Novedades</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
           </nav>
@@ -145,18 +145,18 @@ export function Header() {
                 Que Hacemos
               </a>
               <a
-                href="#logros"
-                onClick={(e) => handleSmoothScroll(e, "logros")}
-                className="block px-3 py-2 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-all duration-200 transform hover:translate-x-1 cursor-pointer"
-              >
-                Logros
-              </a>
-              <a
                 href="#distribuidoras"
                 onClick={(e) => handleSmoothScroll(e, "distribuidoras")}
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-all duration-200 transform hover:translate-x-1 cursor-pointer"
               >
-                Distribuidoras
+                Marcas/Productos
+              </a>
+              <a
+                href="#logros"
+                onClick={(e) => handleSmoothScroll(e, "logros")}
+                className="block px-3 py-2 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-all duration-200 transform hover:translate-x-1 cursor-pointer"
+              >
+                Novedades
               </a>
               <a
                 href="#contacto"
