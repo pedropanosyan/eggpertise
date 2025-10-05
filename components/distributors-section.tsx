@@ -31,7 +31,7 @@ export function DistributorsSection({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
-            Nuestras Distribuidoras
+            Nuestros Fabricantes
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Trabajamos con las marcas más reconocidas del mercado internacional
@@ -82,7 +82,7 @@ export function DistributorsSection({
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">
-              No hay distribuidoras disponibles en este momento.
+              No hay fabricantes disponibles en este momento.
             </p>
           </div>
         )}

@@ -82,6 +82,30 @@ export function AchievementsBanner() {
             </div>
           ))}
         </div>
+
+        {/* Milestones */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8">
+            <h3 className="text-xl font-serif font-bold text-primary mb-3">
+              Nacimos el día de la avicultura
+            </h3>
+            <ul className="list-disc list-inside text-primary/80 space-y-2">
+              <li>
+                En la avícola concretamos nuestra primer venta antes de pisar el
+                stand
+              </li>
+              <li>Foto con Ordoñez (que sacó Nacho Ancilleta)</li>
+            </ul>
+          </div>
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8">
+            <h3 className="text-xl font-serif font-bold text-primary mb-3">
+              Expandimos al mercado LATAM
+            </h3>
+            <p className="text-primary/80">
+              WEO - Centroamericano y ahora en LPN buscamos el mismo éxito
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
