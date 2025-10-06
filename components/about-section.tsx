@@ -47,32 +47,13 @@ export function AboutSection() {
               </div>
               <div className="w-16 h-1 bg-primary"></div>
               <div className="space-y-4 text-muted-foreground">
-                <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 mt-1 text-primary" />
-                  <p className="leading-relaxed">
-                    <strong className="text-foreground">Fundación:</strong>{" "}
-                    Establecida por Nacho Pernicone, profesional con más de 15
-                    años de experiencia en el sector agropecuario.
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Globe className="w-5 h-5 mt-1 text-primary" />
-                  <p className="leading-relaxed">
-                    <strong className="text-foreground">Alcance Global:</strong>{" "}
-                    Representamos marcas líderes internacionales con presencia
-                    en más de 50 países.
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 mt-1 text-primary" />
-                  <p className="leading-relaxed">
-                    <strong className="text-foreground">
-                      Cobertura Regional:
-                    </strong>{" "}
-                    Servicio especializado para toda Latinoamérica con base en
-                    Argentina.
-                  </p>
-                </div>
+                <p className="leading-relaxed">
+                  <strong className="text-foreground">Nuestra Historia:</strong>{" "}
+                  Eggpertise fue fundada por Ignacio Pernicone, el 2 de Julio de 2025, en el Día de la Avicultura, como resultado de una vida dedicada al sector. Vinculado a la industria desde los 14 años, y con más de 40 años en la industria, Ignacio continúa hoy un legado familiar, siendo la tercera generación dentro de la avicultura.
+                </p>
+                <p className="leading-relaxed">
+                  Con una profunda pasión por la innovación y el compromiso con la excelencia, Eggpertise representa marcas líderes de calidad premium. Con un equipo humano de primer nivel, solido y dinamico, el foco está puesto en identificar y ofrecer las mejores soluciones, anticipándonos a las necesidades de la industria y promoviendo su desarrollo sostenible.
+                </p>
               </div>
             </div>
           </div>
@@ -81,26 +62,17 @@ export function AboutSection() {
           <div className="space-y-8">
             <div className="space-y-6">
               <p className="text-lg leading-relaxed text-muted-foreground">
-                En{" "}
                 <strong className="text-primary font-semibold">
-                  EggPertise
-                </strong>
-                , nos especializamos en acercar las tecnologías más avanzadas
-                del mundo a los productores avícolas y porcinos de
-                Latinoamérica. Nuestro enfoque combina asesoramiento técnico
-                personalizado con soluciones integrales que se adaptan a las
-                necesidades específicas de cada operación.
+                  Misión:
+                </strong>{" "}
+                En EggPertise, nos dedicamos a ayudar a nuestros clientes a transformar proteína vegetal en proteína animal de manera eficiente y sustentable. Buscamos seleccionar las mejores innovaciones tecnológicas a nivel mundial para ofrecer soluciones personalizadas, rentables a largo plazo y de alta calidad en Latinoamérica.
               </p>
 
               <p className="text-lg leading-relaxed text-muted-foreground">
-                Trabajamos exclusivamente con{" "}
                 <strong className="text-primary font-semibold">
-                  marcas líderes
-                </strong>
-                reconocidas mundialmente, garantizando calidad, confiabilidad y
-                soporte técnico continuo. Cada proyecto es acompañado desde la
-                planificación inicial hasta la puesta en marcha, con un
-                compromiso inquebrantable hacia la excelencia.
+                  Visión:
+                </strong>{" "}
+                Nuestra visión es contribuir a un mundo más sustentable y saludable, donde la producción de alimentos sea respetuosa con el medio ambiente y permita garantizar la disponibilidad de alimento para las generaciones futuras.
               </p>
 
               {/* Key differentiators */}
@@ -129,6 +101,7 @@ export function AboutSection() {
         </div>
 
         {/* Enhanced Value proposition banner */}
+        {/*
         <div className="mb-16">
           <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('/abstract-agricultural-pattern.png')] opacity-10"></div>
@@ -145,6 +118,7 @@ export function AboutSection() {
             </div>
           </div>
         </div>
+        */}
       </div>
     </section>
   );

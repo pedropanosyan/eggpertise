@@ -31,11 +31,8 @@ export function DistributorsSection({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
-            Nuestras Distribuidoras
+            Marcas Representadas
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Trabajamos con las marcas más reconocidas del mercado internacional
-          </p>
         </div>
 
         {distributors.length > 0 ? (
@@ -50,17 +47,12 @@ export function DistributorsSection({
                   <Image
                     src={distributor.logo}
                     alt={distributor.nombre}
-                    width={200}
-                    height={200}
+                    width={400}
+                    height={400}
                     className="object-contain max-w-[80%] max-h-[80%]"
                   />
                 </div>
 
-                <CardHeader className="text-center pb-2 pt-4">
-                  <CardTitle className="text-xl font-serif font-bold text-foreground mb-1">
-                    {distributor.nombre}
-                  </CardTitle>
-                </CardHeader>
                 <CardContent className="px-6 pb-6">
                   <p className="text-foreground/80 text-center leading-relaxed mb-4 text-base">
                     {distributor.descripcion_corta}

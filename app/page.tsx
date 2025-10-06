@@ -19,8 +19,8 @@ export default async function HomePage() {
       <HeroSection />
       <DistributorsSection distributors={distributors} />
       <AboutSection />
-      <ServicesSection />
-      <AchievementsBanner />
+      {/*<ServicesSection />*/}
+      {/*<AchievementsBanner />*/}
       <ContactSection />
       <Footer />
     </main>
