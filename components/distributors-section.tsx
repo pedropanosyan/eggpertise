@@ -74,7 +74,7 @@ export function DistributorsSection({
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">
-              No hay distribuidoras disponibles en este momento.
+              No hay fabricantes disponibles en este momento.
             </p>
           </div>
         )}

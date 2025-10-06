@@ -59,7 +59,7 @@ export default async function DistributorPage({ params }: PageProps) {
             >
               <Link href="/#distribuidoras" className="flex items-center">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Volver a Distribuidoras
+                Volver a Fabricantes
               </Link>
             </Button>
           </div>
@@ -179,7 +179,7 @@ export default async function DistributorPage({ params }: PageProps) {
                 <Link href="/#contacto">Contactar Ahora</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="px-8 py-3">
-                <Link href="/#distribuidoras">Ver Otras Marcas</Link>
+                <Link href="/#distribuidoras">Ver Otros Fabricantes</Link>
               </Button>
             </div>
           </div>

@@ -36,7 +36,7 @@ export function HeroSection() {
                   href="/#distribuidoras"
                   className="flex items-center gap-2"
                 >
-                  Ver Distribuidoras
+                  Ver Fabricantes
                   <svg
                     className="w-5 h-5"
                     fill="none"
