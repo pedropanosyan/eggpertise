@@ -154,8 +154,8 @@ export function ContactSection() {
                           handleInputChange("nombre", e.target.value)
                         }
                         className={`transition-all duration-200 ${errors.nombre
-                            ? "border-red-500 focus:border-red-500"
-                            : "focus:border-primary"
+                          ? "border-red-500 focus:border-red-500"
+                          : "focus:border-primary"
                           }`}
                       />
                       {errors.nombre && (
@@ -171,8 +171,8 @@ export function ContactSection() {
                           handleInputChange("email", e.target.value)
                         }
                         className={`transition-all duration-200 ${errors.email
-                            ? "border-red-500 focus:border-red-500"
-                            : "focus:border-primary"
+                          ? "border-red-500 focus:border-red-500"
+                          : "focus:border-primary"
                           }`}
                       />
                       {errors.email && (
@@ -189,8 +189,8 @@ export function ContactSection() {
                         handleInputChange("empresa", e.target.value)
                       }
                       className={`transition-all duration-200 ${errors.empresa
-                          ? "border-red-500 focus:border-red-500"
-                          : "focus:border-primary"
+                        ? "border-red-500 focus:border-red-500"
+                        : "focus:border-primary"
                         }`}
                     />
                     {errors.empresa && (
@@ -207,8 +207,8 @@ export function ContactSection() {
                       }
                       rows={6}
                       className={`transition-all duration-200 resize-none ${errors.mensaje
-                          ? "border-red-500 focus:border-red-500"
-                          : "focus:border-primary"
+                        ? "border-red-500 focus:border-red-500"
+                        : "focus:border-primary"
                         }`}
                     />
                     {errors.mensaje && (
