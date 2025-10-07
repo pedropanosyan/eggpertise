@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import HeroImage from "@/public/landing/hero.webp";
+import HeroImage from "@/public/landing/hero.jpg";
 
 export function HeroSection() {
   return (

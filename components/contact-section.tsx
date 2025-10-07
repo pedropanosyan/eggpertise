@@ -255,7 +255,7 @@ export function ContactSection() {
 
                   <div className="flex items-center space-x-3">
                     <Phone className="h-5 w-5 flex-shrink-0" />
-                    <span className="text-sm">+54 9 11 5469 5802</span>
+                    <span className="text-sm">+54 9 11 2515-5801</span>
                   </div>
 
                   <div className="flex items-center space-x-3">
