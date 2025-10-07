@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Suspense } from "react";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 
 // Configure Big Caslon for headings (fallback to serif)
 const bigCaslon = {
@@ -47,6 +48,7 @@ export default function RootLayout({
           {children}
           <Analytics />
         </Suspense>
+        <WhatsAppButton />
       </body>
     </html>
   );
