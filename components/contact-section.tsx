@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, Instagram, Linkedin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Linkedin, Youtube, Send } from "lucide-react";
 
 interface FormErrors {
   [key: string]: string;
@@ -153,11 +153,10 @@ export function ContactSection() {
                         onChange={(e) =>
                           handleInputChange("nombre", e.target.value)
                         }
-                        className={`transition-all duration-200 ${
-                          errors.nombre
+                        className={`transition-all duration-200 ${errors.nombre
                             ? "border-red-500 focus:border-red-500"
                             : "focus:border-primary"
-                        }`}
+                          }`}
                       />
                       {errors.nombre && (
                         <p className="text-sm text-red-500">{errors.nombre}</p>
@@ -171,11 +170,10 @@ export function ContactSection() {
                         onChange={(e) =>
                           handleInputChange("email", e.target.value)
                         }
-                        className={`transition-all duration-200 ${
-                          errors.email
+                        className={`transition-all duration-200 ${errors.email
                             ? "border-red-500 focus:border-red-500"
                             : "focus:border-primary"
-                        }`}
+                          }`}
                       />
                       {errors.email && (
                         <p className="text-sm text-red-500">{errors.email}</p>
@@ -190,11 +188,10 @@ export function ContactSection() {
                       onChange={(e) =>
                         handleInputChange("empresa", e.target.value)
                       }
-                      className={`transition-all duration-200 ${
-                        errors.empresa
+                      className={`transition-all duration-200 ${errors.empresa
                           ? "border-red-500 focus:border-red-500"
                           : "focus:border-primary"
-                      }`}
+                        }`}
                     />
                     {errors.empresa && (
                       <p className="text-sm text-red-500">{errors.empresa}</p>
@@ -209,11 +206,10 @@ export function ContactSection() {
                         handleInputChange("mensaje", e.target.value)
                       }
                       rows={6}
-                      className={`transition-all duration-200 resize-none ${
-                        errors.mensaje
+                      className={`transition-all duration-200 resize-none ${errors.mensaje
                           ? "border-red-500 focus:border-red-500"
                           : "focus:border-primary"
-                      }`}
+                        }`}
                     />
                     {errors.mensaje && (
                       <p className="text-sm text-red-500">{errors.mensaje}</p>
@@ -271,16 +267,28 @@ export function ContactSection() {
                 <div className="flex space-x-4 pt-6">
                   <div className="flex items-center space-x-4">
                     <a
-                      href="#"
+                      href="https://www.linkedin.com/company/eggpertise"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-center w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 transition-all duration-300 hover:scale-110"
+                    >
+                      <Linkedin className="h-6 w-6 text-white group-hover:text-white" />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/eggpertise"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group flex items-center justify-center w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 transition-all duration-300 hover:scale-110"
                     >
                       <Instagram className="h-6 w-6 text-white group-hover:text-white" />
                     </a>
                     <a
-                      href="#"
+                      href="https://www.youtube.com/@EggPertise"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group flex items-center justify-center w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 transition-all duration-300 hover:scale-110"
                     >
-                      <Linkedin className="h-6 w-6 text-white group-hover:text-white" />
+                      <Youtube className="h-6 w-6 text-white group-hover:text-white" />
                     </a>
                   </div>
                 </div>

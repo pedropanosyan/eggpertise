@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Mail, Phone, MapPin, Instagram, Linkedin } from "lucide-react"
+import { Mail, Phone, MapPin, Instagram, Linkedin, Youtube } from "lucide-react"
 
 export function Footer() {
   return (
@@ -62,11 +62,14 @@ export function Footer() {
               </div>
             </div>
             <div className="flex space-x-4 pt-2">
-              <Link href="#" className="hover:opacity-80 transition-opacity">
+              <Link href="https://www.linkedin.com/company/eggpertise" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <Linkedin className="h-5 w-5" />
+              </Link>
+              <Link href="https://www.instagram.com/eggpertise" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" className="hover:opacity-80 transition-opacity">
-                <Linkedin className="h-5 w-5" />
+              <Link href="https://www.youtube.com/@EggPertise" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <Youtube className="h-5 w-5" />
               </Link>
             </div>
           </div>
