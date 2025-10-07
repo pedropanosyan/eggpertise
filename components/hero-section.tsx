@@ -11,16 +11,16 @@ export function HeroSection() {
         alt="Hero Image"
         className="absolute inset-0 w-full h-full object-cover opacity-100"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/40 to-white/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/10"></div>
 
       <div className="relative container mx-auto px-6 sm:px-8 lg:px-12 text-center">
         <div className="max-w-5xl mx-auto">
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-foreground leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-2xl">
               Soluciones Reales para tu Producción
             </h1>
 
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-light max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl text-white/90 leading-relaxed font-medium max-w-4xl mx-auto drop-shadow-lg">
               Desde EggPertise acercamos la innovación tecnológica global a
               productores avícolas y porcinos de Latinoamérica, combinando
               asesoramiento personalizado y soluciones integrales.
@@ -29,19 +29,20 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
               <Button
                 asChild
+                variant="secondary"
                 size="lg"
-                className="px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                className="w-full sm:w-auto px-8 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
               >
                 <Link
                   href="/#distribuidoras"
-                  className="flex items-center gap-2"
+                  className="flex items-center justify-center gap-2"
                 >
                   Ver Fabricantes
                   <svg
                     className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 22 22"
                   >
                     <path
                       strokeLinecap="round"
@@ -54,11 +55,10 @@ export function HeroSection() {
               </Button>
               <Button
                 asChild
-                variant="outline"
                 size="lg"
-                className="px-8 py-6 text-lg font-medium transition-all duration-300 hover:scale-[1.02]"
+                className="w-full sm:w-auto px-8 py-6 text-lg font-medium transition-all duration-300 hover:scale-[1.02]"
               >
-                <Link href="#contacto" className="flex items-center gap-2">
+                <Link href="#contacto" className="flex items-center justify-center gap-2">
                   Consultar Ahora
                 </Link>
               </Button>
