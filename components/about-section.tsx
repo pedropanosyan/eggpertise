@@ -49,10 +49,10 @@ export function AboutSection() {
               <div className="space-y-4 text-muted-foreground">
                 <p className="leading-relaxed">
                   <strong className="text-foreground">Nuestra Historia:</strong>{" "}
-                  Eggpertise fue fundada por Ignacio Pernicone, el 2 de Julio de 2025, en el Día de la Avicultura, como resultado de una vida dedicada al sector. Vinculado a la industria desde los 14 años, y con más de 40 años en la industria, Ignacio continúa hoy un legado familiar, siendo la tercera generación dentro de la avicultura.
+                  EggPertise fue fundada por Ignacio Pernicone, el 2 de Julio de 2025, en el Día de la Avicultura, como resultado de una vida dedicada al sector. Vinculado a la industria desde los 14 años, y con más de 40 años en la industria, Ignacio continúa hoy un legado familiar, siendo la tercera generación dentro de la avicultura.
                 </p>
                 <p className="leading-relaxed">
-                  Con una profunda pasión por la innovación y el compromiso con la excelencia, Eggpertise representa marcas líderes de calidad premium. Con un equipo humano de primer nivel, solido y dinamico, el foco está puesto en identificar y ofrecer las mejores soluciones, anticipándonos a las necesidades de la industria y promoviendo su desarrollo sostenible.
+                  Con una profunda pasión por la innovación y el compromiso con la excelencia, EggPertise representa marcas líderes de calidad premium. Con un equipo humano de primer nivel, solido y dinamico, el foco está puesto en identificar y ofrecer las mejores soluciones, anticipándonos a las necesidades de la industria y promoviendo su desarrollo sostenible.
                 </p>
               </div>
             </div>

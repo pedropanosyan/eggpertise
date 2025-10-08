@@ -24,8 +24,8 @@ export function Footer() {
               <Link href="#quienes-somos" className="block hover:opacity-80 transition-opacity">
                 Quiénes Somos
               </Link>
-              <Link href="/distribuidoras" className="block hover:opacity-80 transition-opacity">
-                Distribuidoras
+              <Link href="#distribuidoras" className="block hover:opacity-80 transition-opacity">
+                Fabricantes
               </Link>
               <Link href="#contacto" className="block hover:opacity-80 transition-opacity">
                 Contacto

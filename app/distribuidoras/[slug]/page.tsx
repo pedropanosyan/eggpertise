@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import Logo from "@/public/brand/logo.png";
 import {
   getFabricanteBySlug,
   getAllFabricanteSlugs,
@@ -75,13 +74,15 @@ export default async function DistributorPage({ params }: PageProps) {
         </div>
 
         {/* Logo Overlay - Bottom Right */}
-        <div className="absolute bottom-6 right-6 z-20">
-          <Image
-            src={distributor.logo}
-            alt="EggPertise"
-            width={400}
-            height={400}
-          />
+        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-20">
+          <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72">
+            <Image
+              src={distributor.logo}
+              alt={distributor.nombre}
+              fill
+              className="object-contain"
+            />
+          </div>
         </div>
       </section>
 
