@@ -14,7 +14,7 @@ export function DistributorsSection({
   return (
     <section
       id="distribuidoras"
-      className="py-20 bg-gradient-to-br from-primary/5 to-primary/15 relative overflow-hidden"
+      className="py-12 bg-gradient-to-br from-primary/5 to-primary/15 relative overflow-hidden"
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -28,22 +28,22 @@ export function DistributorsSection({
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center space-y-4 mb-16">
+      <div className="mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center space-y-4 mb-10">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
             Marcas Representadas
           </h2>
         </div>
 
         {distributors.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-8xl mx-auto">
             {distributors.map((distributor) => (
               <Card
                 key={distributor.id}
-                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0"
+                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col h-full"
               >
                 {/* Distributor Logo */}
-                <div className="relative h-56 overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+                <div className="relative h-44 overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
                   <Image
                     src={distributor.logo}
                     alt={distributor.nombre}
@@ -53,15 +53,20 @@ export function DistributorsSection({
                   />
                 </div>
 
-                <CardContent className="px-6 pb-6">
-                  <p className="text-foreground/80 text-center leading-relaxed mb-4 text-base">
+                <CardHeader className="text-center pt-3">
+                  <CardTitle className="text-xl font-serif font-bold text-foreground">
+                    {distributor.nombre}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-4 flex flex-col flex-grow">
+                  <p className="text-foreground/80 text-center leading-relaxed mb-3 text-base flex-grow">
                     {distributor.descripcion_corta}
                   </p>
 
                   <Button
                     asChild
                     variant="outline"
-                    className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm"
+                    className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mt-auto"
                   >
                     <Link href={`/distribuidoras/${distributor.id}`}>
                       Ver Marca
