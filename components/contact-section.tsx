@@ -8,7 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, MapPin, Instagram, Linkedin, Youtube, Send } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Send,
+} from "lucide-react";
 
 interface FormErrors {
   [key: string]: string;
@@ -153,10 +161,11 @@ export function ContactSection() {
                         onChange={(e) =>
                           handleInputChange("nombre", e.target.value)
                         }
-                        className={`transition-all duration-200 ${errors.nombre
-                          ? "border-red-500 focus:border-red-500"
-                          : "focus:border-primary"
-                          }`}
+                        className={`transition-all duration-200 ${
+                          errors.nombre
+                            ? "border-red-500 focus:border-red-500"
+                            : "focus:border-primary"
+                        }`}
                       />
                       {errors.nombre && (
                         <p className="text-sm text-red-500">{errors.nombre}</p>
@@ -170,10 +179,11 @@ export function ContactSection() {
                         onChange={(e) =>
                           handleInputChange("email", e.target.value)
                         }
-                        className={`transition-all duration-200 ${errors.email
-                          ? "border-red-500 focus:border-red-500"
-                          : "focus:border-primary"
-                          }`}
+                        className={`transition-all duration-200 ${
+                          errors.email
+                            ? "border-red-500 focus:border-red-500"
+                            : "focus:border-primary"
+                        }`}
                       />
                       {errors.email && (
                         <p className="text-sm text-red-500">{errors.email}</p>
@@ -188,10 +198,11 @@ export function ContactSection() {
                       onChange={(e) =>
                         handleInputChange("empresa", e.target.value)
                       }
-                      className={`transition-all duration-200 ${errors.empresa
-                        ? "border-red-500 focus:border-red-500"
-                        : "focus:border-primary"
-                        }`}
+                      className={`transition-all duration-200 ${
+                        errors.empresa
+                          ? "border-red-500 focus:border-red-500"
+                          : "focus:border-primary"
+                      }`}
                     />
                     {errors.empresa && (
                       <p className="text-sm text-red-500">{errors.empresa}</p>
@@ -206,10 +217,11 @@ export function ContactSection() {
                         handleInputChange("mensaje", e.target.value)
                       }
                       rows={6}
-                      className={`transition-all duration-200 resize-none ${errors.mensaje
-                        ? "border-red-500 focus:border-red-500"
-                        : "focus:border-primary"
-                        }`}
+                      className={`transition-all duration-200 resize-none ${
+                        errors.mensaje
+                          ? "border-red-500 focus:border-red-500"
+                          : "focus:border-primary"
+                      }`}
                     />
                     {errors.mensaje && (
                       <p className="text-sm text-red-500">{errors.mensaje}</p>
@@ -253,15 +265,23 @@ export function ContactSection() {
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3">
+                  <a
+                    href="https://api.whatsapp.com/send/?phone=5491125155801&text=Hola+EggPertise%21+Quiero+informaci%C3%B3n+sobre%3A&type=phone_number&app_absent=0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 group/phone hover:opacity-80 transition-all duration-300 cursor-pointer"
+                  >
                     <Phone className="h-5 w-5 flex-shrink-0" />
                     <span className="text-sm">+54 9 11 2515-5801</span>
-                  </div>
+                  </a>
 
-                  <div className="flex items-center space-x-3">
+                  <a
+                    href="mailto:info@eggpertise.com"
+                    className="flex items-center space-x-3 group/email hover:opacity-80 transition-all duration-300 cursor-pointer"
+                  >
                     <Mail className="h-5 w-5 flex-shrink-0" />
                     <span className="text-sm">info@eggpertise.com</span>
-                  </div>
+                  </a>
                 </div>
 
                 <div className="flex space-x-4 pt-6">
