@@ -52,6 +52,7 @@ const PRODUCTOS_BY_FABRICANTE_QUERY = `
       sys { id }
       nombre
       descripcionCorta
+      categoria
       portada {
         url
       }
@@ -127,6 +128,7 @@ interface ProductoGraphQLResponse {
   sys: { id: string };
   nombre: string;
   descripcionCorta: string;
+  categoria: string | null;
   portada: { url: string };
   logoPortada: { url: string } | null;
 }
@@ -167,6 +169,7 @@ export interface Producto {
   id: string;
   nombre: string;
   descripcion_corta: string;
+  categoria: string | null;
   imagen_portada: string;
   logo_portada: string;
 }
@@ -211,6 +214,7 @@ function parseProductoFromGraphQL(item: ProductoGraphQLResponse): Producto {
     id: item.sys.id,
     nombre: item.nombre,
     descripcion_corta: item.descripcionCorta,
+    categoria: item.categoria,
     imagen_portada: item.portada.url,
     logo_portada: item.logoPortada?.url || item.portada.url,
   };
