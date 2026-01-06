@@ -14,7 +14,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import {
   getProductoBySlug,
   getAllProductoSlugs,
@@ -144,6 +144,29 @@ export default async function ProductPage({ params }: PageProps) {
               {/* Clear float to ensure subsequent content flows correctly */}
               <div className="clear-both"></div>
             </div>
+
+            {/* Technical Data Sheet Download */}
+            {producto.ficha_tecnica && (
+              <div className="mt-12 flex justify-center">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="group border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3"
+                >
+                  <a
+                    href={producto.ficha_tecnica.url}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center"
+                  >
+                    <Download className="h-5 w-5 mr-2 group-hover:animate-bounce" />
+                    Descargar {producto.ficha_tecnica.title || "Ficha Técnica"}
+                  </a>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </section>

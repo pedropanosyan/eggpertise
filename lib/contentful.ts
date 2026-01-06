@@ -96,6 +96,10 @@ const PRODUCTO_BY_SLUG_QUERY = `
             url
           }
         }
+        fichaTecnica {
+          url
+          title
+        }
         fabricante {
           sys { id }
           nombre
@@ -151,6 +155,10 @@ interface ProductoCompleteGraphQLResponse {
   imagenesCollection: {
     items: { url: string }[];
   };
+  fichaTecnica?: {
+    url: string;
+    title: string;
+  };
   fabricante: {
     sys: { id: string };
     nombre: string;
@@ -191,6 +199,10 @@ export interface ProductoCompleto {
   descripcion_larga: Document;
   imagen_portada: string;
   imagenes: string[];
+  ficha_tecnica?: {
+    url: string;
+    title: string;
+  };
   fabricante: {
     id: string;
     nombre: string;
@@ -244,6 +256,12 @@ function parseProductoCompletoFromGraphQL(
     descripcion_larga: item.descripcionLarga.json,
     imagen_portada: item.portada.url,
     imagenes: item.imagenesCollection.items.map((img) => img.url),
+    ficha_tecnica: item.fichaTecnica
+      ? {
+          url: item.fichaTecnica.url,
+          title: item.fichaTecnica.title,
+        }
+      : undefined,
     fabricante: {
       id: item.fabricante.sys.id,
       nombre: item.fabricante.nombre,
