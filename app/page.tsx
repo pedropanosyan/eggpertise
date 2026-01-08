@@ -6,18 +6,21 @@ import { AboutSection } from "@/components/about-section";
 import { AchievementsBanner } from "@/components/achievements-banner";
 import { ServicesSection } from "@/components/services-section";
 import { DistributorsSection } from "@/components/distributors-section";
+import { ProductsSection } from "@/components/products-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-import { getFabricantes } from "@/lib/contentful";
+import { getFabricantes, getProductosPrincipales } from "@/lib/contentful";
 
 export default async function HomePage() {
   const distributors = await getFabricantes();
+  const productosPrincipales = await getProductosPrincipales();
 
   return (
     <main className="min-h-screen">
       <Header />
       <HeroSection />
       <DistributorsSection distributors={distributors} />
+      <ProductsSection productos={productosPrincipales} />
       <AboutSection />
       {/*<ServicesSection />*/}
       {/*<AchievementsBanner />*/}

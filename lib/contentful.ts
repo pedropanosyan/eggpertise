@@ -120,6 +120,26 @@ const PRODUCTO_SLUGS_QUERY = `
   }
 `;
 
+// GraphQL query for main products (principal = true)
+const PRODUCTOS_PRINCIPALES_QUERY = `
+  query GetProductosPrincipales {
+    productoCollection(where: { principal: true }) {
+      items {
+        sys { id }
+        nombre
+        descripcionCorta
+        categoria
+        portada {
+          url
+        }
+        logoPortada {
+          url
+        }
+      }
+    }
+  }
+`;
+
 // GraphQL response types (raw data from Contentful)
 interface FabricanteGraphQLResponse {
   sys: { id: string };
@@ -392,6 +412,18 @@ export async function getAllProductoSlugs(): Promise<string[]> {
     return productos.map((item) => item.sys.id);
   } catch (error) {
     console.error("Error fetching producto slugs:", error);
+    return [];
+  }
+}
+
+export async function getProductosPrincipales(): Promise<Producto[]> {
+  try {
+    const response = await graphqlRequest(PRODUCTOS_PRINCIPALES_QUERY);
+    const productos = response.data.productoCollection
+      .items as ProductoGraphQLResponse[];
+    return productos.map(parseProductoFromGraphQL);
+  } catch (error) {
+    console.error("Error fetching productos principales:", error);
     return [];
   }
 }
