@@ -28,7 +28,7 @@ export function DistributorsSection({
         />
       </div>
 
-      <div className="mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
+      <div className="mx-auto px-6 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
         <div className="text-center space-y-4 mb-10">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
             Marcas Representadas
@@ -36,11 +36,11 @@ export function DistributorsSection({
         </div>
 
         {distributors.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-8xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-6 lg:gap-8 mx-auto max-w-7xl">
             {distributors.map((distributor) => (
               <Card
                 key={distributor.id}
-                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col h-full"
+                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col h-full w-full max-w-[300px]"
               >
                 {/* Distributor Logo */}
                 <div className="relative h-44 overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
