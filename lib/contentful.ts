@@ -179,10 +179,10 @@ interface ProductoCompleteGraphQLResponse {
     url: string;
     title: string;
   };
-  fabricante: {
+  fabricante?: {
     sys: { id: string };
     nombre: string;
-  };
+  } | null;
 }
 
 // Application types (processed data for the app)
@@ -223,10 +223,10 @@ export interface ProductoCompleto {
     url: string;
     title: string;
   };
-  fabricante: {
+  fabricante?: {
     id: string;
     nombre: string;
-  };
+  } | null;
 }
 
 // GraphQL parsing functions
@@ -282,10 +282,12 @@ function parseProductoCompletoFromGraphQL(
           title: item.fichaTecnica.title,
         }
       : undefined,
-    fabricante: {
-      id: item.fabricante.sys.id,
-      nombre: item.fabricante.nombre,
-    },
+    fabricante: item.fabricante
+      ? {
+          id: item.fabricante.sys.id,
+          nombre: item.fabricante.nombre,
+        }
+      : null,
   };
 }
 

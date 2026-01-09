@@ -59,28 +59,32 @@ export default async function ProductPage({ params }: PageProps) {
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center mb-8">
-            <Button
-              asChild
-              variant="ghost"
-              className="mr-4 bg-white/20 hover:bg-white/30 text-white border-white/30"
-            >
-              <Link
-                href={`/distribuidoras/${producto.fabricante.id}`}
-                className="flex items-center"
+          {producto.fabricante && (
+            <div className="flex items-center mb-8">
+              <Button
+                asChild
+                variant="ghost"
+                className="mr-4 bg-white/20 hover:bg-white/30 text-white border-white/30"
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Volver a {producto.fabricante.nombre}
-              </Link>
-            </Button>
-          </div>
+                <Link
+                  href={`/distribuidoras/${producto.fabricante.id}`}
+                  className="flex items-center"
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Volver a {producto.fabricante.nombre}
+                </Link>
+              </Button>
+            </div>
+          )}
 
           <div className="max-w-4xl">
-            <div className="mb-4">
-              <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium">
-                {producto.fabricante.nombre}
-              </span>
-            </div>
+            {producto.fabricante && (
+              <div className="mb-4">
+                <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium">
+                  {producto.fabricante.nombre}
+                </span>
+              </div>
+            )}
             <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 text-white">
               {producto.nombre}
             </h1>
@@ -179,8 +183,8 @@ export default async function ProductPage({ params }: PageProps) {
               ¿Interesado en {producto.nombre}?
             </h2>
             <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
-              Contáctanos para obtener más información sobre este producto y
-              otros de {producto.fabricante.nombre}
+              Contáctanos para obtener más información sobre este producto
+              {producto.fabricante && ` y otros de ${producto.fabricante.nombre}`}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -191,11 +195,13 @@ export default async function ProductPage({ params }: PageProps) {
               >
                 <Link href="/#contacto">Contactar Ahora</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="px-8 py-3">
-                <Link href={`/distribuidoras/${producto.fabricante.id}`}>
-                  Ver Más de {producto.fabricante.nombre}
-                </Link>
-              </Button>
+              {producto.fabricante && (
+                <Button asChild variant="outline" size="lg" className="px-8 py-3">
+                  <Link href={`/distribuidoras/${producto.fabricante.id}`}>
+                    Ver Más de {producto.fabricante.nombre}
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>
