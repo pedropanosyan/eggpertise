@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 import "./globals.css";
 import { Suspense } from "react";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -44,6 +45,18 @@ export default function RootLayout({
           [arial.variable]: arial.style.fontFamily,
         }}
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-LH9L77P6YJ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LH9L77P6YJ');
+          `}
+        </Script>
         <Suspense>
           {children}
           <Analytics />
