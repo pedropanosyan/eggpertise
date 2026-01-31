@@ -104,7 +104,7 @@ export function ServicesSection() {
           {services.map((service, index) => (
             <Card
               key={index}
-              className="bg-white/5 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-2xl hover:bg-white/10 transition-all duration-500 hover:scale-105 group overflow-hidden p-0"
+              className="bg-white/5 backdrop-blur-sm border border-white/20 shadow-lg hover:shadow-2xl hover:bg-white/10 transition-all duration-500 hover:scale-105 group overflow-hidden p-0 flex flex-col h-full"
             >
               {/* Service Image */}
               <div className="relative h-48 overflow-hidden">
@@ -127,13 +127,13 @@ export function ServicesSection() {
                   {service.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="px-8 pb-8">
-                <p className="text-primary-foreground/80 text-center leading-relaxed mb-6 text-lg">
+              <CardContent className="px-8 pb-8 flex flex-col flex-grow">
+                <p className="text-primary-foreground/80 text-center leading-relaxed mb-6 text-lg flex-grow">
                   {service.description}
                 </p>
 
                 {/* Feature List */}
-                <div className="flex flex-wrap gap-2 justify-center">
+                <div className="flex flex-wrap gap-2 justify-center mt-auto">
                   {service.features.map((feature, featureIndex) => (
                     <div
                       key={featureIndex}

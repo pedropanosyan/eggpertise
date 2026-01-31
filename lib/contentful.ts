@@ -1,6 +1,18 @@
 // lib/contentful.ts
 import { Document } from "@contentful/rich-text-types";
 
+// Utility function to generate URL-friendly slugs from names
+export function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // Remove accents
+    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-") // Replace multiple hyphens with single
+    .replace(/^-|-$/g, ""); // Remove leading/trailing hyphens
+}
+
 // GraphQL endpoint
 const GRAPHQL_ENDPOINT = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`;
 
@@ -20,10 +32,10 @@ const FABRICANTES_QUERY = `
   }
 `;
 
-// GraphQL query for individual fabricante page (complete data)
-const FABRICANTE_BY_SLUG_QUERY = `
-  query GetFabricanteBySlug($slug: String!) {
-    fabricanteCollection(where: { sys: { id: $slug } }, limit: 1) {
+// GraphQL query for all fabricantes with complete data (for slug lookup)
+const ALL_FABRICANTES_COMPLETE_QUERY = `
+  query GetAllFabricantesComplete {
+    fabricanteCollection {
       items {
         sys { id }
         nombre
@@ -37,6 +49,7 @@ const FABRICANTE_BY_SLUG_QUERY = `
         imagenPortada {
           url
         }
+        link
       }
     }
   }
@@ -66,21 +79,22 @@ const PRODUCTOS_BY_FABRICANTE_QUERY = `
 
 `;
 
-// GraphQL query for static generation
+// GraphQL query for static generation (includes nombre for slug generation)
 const FABRICANTE_SLUGS_QUERY = `
   query GetFabricanteSlugs {
     fabricanteCollection {
       items {
         sys { id }
+        nombre
       }
     }
   }
 `;
 
-// GraphQL query for individual product page (complete data)
-const PRODUCTO_BY_SLUG_QUERY = `
-  query GetProductoBySlug($slug: String!) {
-    productoCollection(where: { sys: { id: $slug } }, limit: 1) {
+// GraphQL query for all products with complete data (for slug lookup)
+const ALL_PRODUCTOS_COMPLETE_QUERY = `
+  query GetAllProductosComplete {
+    productoCollection {
       items {
         sys { id }
         nombre
@@ -109,12 +123,13 @@ const PRODUCTO_BY_SLUG_QUERY = `
   }
 `;
 
-// GraphQL query for product slugs
+// GraphQL query for product slugs (includes nombre for slug generation)
 const PRODUCTO_SLUGS_QUERY = `
   query GetProductoSlugs {
     productoCollection {
       items {
         sys { id }
+        nombre
       }
     }
   }
@@ -164,6 +179,7 @@ interface FabricanteCompleteGraphQLResponse {
   descripcionCorta: string;
   descripcionLarga: { json: Document };
   imagenPortada: { url: string };
+  link: string | null;
 }
 
 interface ProductoCompleteGraphQLResponse {
@@ -188,6 +204,7 @@ interface ProductoCompleteGraphQLResponse {
 // Application types (processed data for the app)
 export interface Distributor {
   id: string;
+  slug: string;
   nombre: string;
   logo: string;
   descripcion_corta: string;
@@ -195,6 +212,7 @@ export interface Distributor {
 
 export interface Producto {
   id: string;
+  slug: string;
   nombre: string;
   descripcion_corta: string;
   categoria: string | null;
@@ -204,16 +222,19 @@ export interface Producto {
 
 export interface Fabricante {
   id: string;
+  slug: string;
   nombre: string;
   logo: string;
   descripcion_corta: string;
   descripcion_larga: Document;
   imagen_portada: string;
   productos: Producto[];
+  link: string | null;
 }
 
 export interface ProductoCompleto {
   id: string;
+  slug: string;
   nombre: string;
   descripcion_corta: string;
   descripcion_larga: Document;
@@ -225,6 +246,7 @@ export interface ProductoCompleto {
   };
   fabricante?: {
     id: string;
+    slug: string;
     nombre: string;
   } | null;
 }
@@ -235,6 +257,7 @@ function parseDistributorFromGraphQL(
 ): Distributor {
   return {
     id: item.sys.id,
+    slug: generateSlug(item.nombre),
     nombre: item.nombre,
     logo: item.logo.url,
     descripcion_corta: item.descripcionCorta,
@@ -244,6 +267,7 @@ function parseDistributorFromGraphQL(
 function parseProductoFromGraphQL(item: ProductoGraphQLResponse): Producto {
   return {
     id: item.sys.id,
+    slug: generateSlug(item.nombre),
     nombre: item.nombre,
     descripcion_corta: item.descripcionCorta,
     categoria: item.categoria,
@@ -257,12 +281,14 @@ function parseFabricanteFromGraphQL(
 ): Fabricante {
   return {
     id: item.sys.id,
+    slug: generateSlug(item.nombre),
     nombre: item.nombre,
     logo: item.logo.url,
     descripcion_corta: item.descripcionCorta,
     descripcion_larga: item.descripcionLarga.json,
     imagen_portada: item.imagenPortada.url,
     productos: [], // Will be populated separately
+    link: item.link,
   };
 }
 
@@ -271,6 +297,7 @@ function parseProductoCompletoFromGraphQL(
 ): ProductoCompleto {
   return {
     id: item.sys.id,
+    slug: generateSlug(item.nombre),
     nombre: item.nombre,
     descripcion_corta: item.descripcionCorta,
     descripcion_larga: item.descripcionLarga.json,
@@ -285,6 +312,7 @@ function parseProductoCompletoFromGraphQL(
     fabricante: item.fabricante
       ? {
           id: item.fabricante.sys.id,
+          slug: generateSlug(item.fabricante.nombre),
           nombre: item.fabricante.nombre,
         }
       : null,
@@ -351,15 +379,20 @@ export async function getFabricanteBySlug(
   slug: string
 ): Promise<Fabricante | null> {
   try {
-    const response = await graphqlRequest(FABRICANTE_BY_SLUG_QUERY, { slug });
+    const response = await graphqlRequest(ALL_FABRICANTES_COMPLETE_QUERY);
     const fabricantes = response.data.fabricanteCollection
       .items as FabricanteCompleteGraphQLResponse[];
 
-    if (fabricantes.length === 0) {
+    // Find fabricante by matching generated slug
+    const found = fabricantes.find(
+      (item) => generateSlug(item.nombre) === slug
+    );
+
+    if (!found) {
       return null;
     }
 
-    const fabricante = parseFabricanteFromGraphQL(fabricantes[0]);
+    const fabricante = parseFabricanteFromGraphQL(found);
 
     // Fetch products for this fabricante
     const productos = await getProductosByFabricante(fabricante.id);
@@ -378,8 +411,9 @@ export async function getAllFabricanteSlugs(): Promise<string[]> {
     const response = await graphqlRequest(FABRICANTE_SLUGS_QUERY);
     const fabricantes = response.data.fabricanteCollection.items as {
       sys: { id: string };
+      nombre: string;
     }[];
-    return fabricantes.map((item) => item.sys.id);
+    return fabricantes.map((item) => generateSlug(item.nombre));
   } catch (error) {
     console.error("Error fetching fabricante slugs:", error);
     return [];
@@ -390,15 +424,18 @@ export async function getProductoBySlug(
   slug: string
 ): Promise<ProductoCompleto | null> {
   try {
-    const response = await graphqlRequest(PRODUCTO_BY_SLUG_QUERY, { slug });
+    const response = await graphqlRequest(ALL_PRODUCTOS_COMPLETE_QUERY);
     const productos = response.data.productoCollection
       .items as ProductoCompleteGraphQLResponse[];
 
-    if (productos.length === 0) {
+    // Find producto by matching generated slug
+    const found = productos.find((item) => generateSlug(item.nombre) === slug);
+
+    if (!found) {
       return null;
     }
 
-    return parseProductoCompletoFromGraphQL(productos[0]);
+    return parseProductoCompletoFromGraphQL(found);
   } catch (error) {
     console.error("Error fetching producto by slug:", error);
     return null;
@@ -410,8 +447,9 @@ export async function getAllProductoSlugs(): Promise<string[]> {
     const response = await graphqlRequest(PRODUCTO_SLUGS_QUERY);
     const productos = response.data.productoCollection.items as {
       sys: { id: string };
+      nombre: string;
     }[];
-    return productos.map((item) => item.sys.id);
+    return productos.map((item) => generateSlug(item.nombre));
   } catch (error) {
     console.error("Error fetching producto slugs:", error);
     return [];

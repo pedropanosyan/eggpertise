@@ -66,7 +66,7 @@ export function ProductsSection({ productos }: ProductsSectionProps) {
                     variant="outline"
                     className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mt-auto"
                   >
-                    <Link href={`/productos/${producto.id}`}>
+                    <Link href={`/productos/${producto.slug}`}>
                       Ver Detalles
                     </Link>
                   </Button>

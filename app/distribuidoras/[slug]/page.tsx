@@ -77,7 +77,7 @@ function groupProductsByCategory(productos: Producto[]) {
 // Product Card Component
 function ProductCard({ producto }: { producto: Producto }) {
   return (
-    <Card className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0">
+    <Card className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col h-full">
       {/* Product Image */}
       <div className="relative h-56 overflow-hidden">
         <Image
@@ -94,17 +94,17 @@ function ProductCard({ producto }: { producto: Producto }) {
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="px-6 pb-6">
-        <p className="text-foreground/80 text-center leading-relaxed mb-4 text-base">
+      <CardContent className="px-6 pb-6 flex flex-col flex-grow">
+        <p className="text-foreground/80 text-center leading-relaxed mb-4 text-base flex-grow">
           {producto.descripcion_corta}
         </p>
 
         <Button
           asChild
           variant="outline"
-          className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm"
+          className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mt-auto"
         >
-          <Link href={`/productos/${producto.id}`}>Ver Detalles</Link>
+          <Link href={`/productos/${producto.slug}`}>Ver Detalles</Link>
         </Button>
       </CardContent>
     </Card>
@@ -212,18 +212,38 @@ export default async function DistributorPage({ params }: PageProps) {
           </Button>
         </div>
 
-        {/* Logo Overlay - Right with White Border */}
-        <div className="absolute -bottom-12 right-4 sm:-bottom-16 sm:right-6 z-20">
-          <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 rounded-full border-2 sm:border-3 lg:border-4 border-white/80 overflow-hidden shadow-xl bg-white/20 backdrop-blur-md">
-            <div className="absolute inset-2 sm:inset-[10px] md:inset-3 rounded-full overflow-hidden">
-              <Image
-                src={distributor.logo}
-                alt={distributor.nombre}
-                fill
-                className="object-contain"
-              />
+        {/* Logo Overlay - Left with White Border */}
+        <div className="absolute -bottom-12 left-4 sm:-bottom-16 sm:left-6 z-20">
+          {distributor.link ? (
+            <Link
+              href={distributor.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block hover:scale-105 transition-transform duration-300"
+            >
+              <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 rounded-full border-2 sm:border-3 lg:border-4 border-white/80 overflow-hidden shadow-xl bg-white/20 backdrop-blur-md cursor-pointer">
+                <div className="absolute inset-2 sm:inset-[10px] md:inset-3 rounded-full overflow-hidden">
+                  <Image
+                    src={distributor.logo}
+                    alt={distributor.nombre}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            </Link>
+          ) : (
+            <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 rounded-full border-2 sm:border-3 lg:border-4 border-white/80 overflow-hidden shadow-xl bg-white/20 backdrop-blur-md">
+              <div className="absolute inset-2 sm:inset-[10px] md:inset-3 rounded-full overflow-hidden">
+                <Image
+                  src={distributor.logo}
+                  alt={distributor.nombre}
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
