@@ -166,7 +166,7 @@ export function getFichaTecnicaUserTemplate(
           <p>Gracias por tu interés en <strong>${productoNombre}</strong>.</p>
           <p>Hacé clic en el siguiente botón para descargar la ficha técnica:</p>
 
-          <a href="${fichaTecnicaUrl}" class="button">
+          <a href="${fichaTecnicaUrl}" style="display: inline-block; background-color: #667eea; color: #ffffff; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 20px 0; font-size: 16px;">
             Descargar ${fichaTecnicaNombre}
           </a>
 

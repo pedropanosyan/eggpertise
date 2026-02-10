@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ProductImageGallery } from "@/components/product-image-gallery";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ChevronRight, MessageCircle, Factory } from "lucide-react";
 import { FichaTecnicaModal } from "@/components/ficha-tecnica-modal";
 import {
   getProductoBySlug,
@@ -16,6 +16,7 @@ import {
 } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { renderOptions } from "@/lib/rich-text-renderers";
+import { Card } from "@/components/ui/card";
 
 interface PageProps {
   params: {
@@ -31,6 +32,11 @@ export default async function ProductPage({ params }: PageProps) {
   if (!producto) {
     notFound();
   }
+
+  const whatsappMessage = encodeURIComponent(
+    `Hola EggPertise! Quiero información sobre: ${producto.nombre}`
+  );
+  const whatsappUrl = `https://api.whatsapp.com/send/?phone=5491125155801&text=${whatsappMessage}&type=phone_number&app_absent=0`;
 
   return (
     <main className="min-h-screen">
@@ -53,35 +59,15 @@ export default async function ProductPage({ params }: PageProps) {
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center mb-8">
-            <Button
-              asChild
-              variant="ghost"
-              className="mr-4 bg-white/20 hover:bg-white/30 text-white border-white/30"
-            >
-              {producto.fabricante ? (
-                <Link
-                  href={`/distribuidoras/${producto.fabricante.slug}`}
-                  className="flex items-center"
-                >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Volver a {producto.fabricante.nombre}
-                </Link>
-              ) : (
-                <Link href="/" className="flex items-center">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Volver al inicio
-                </Link>
-              )}
-            </Button>
-          </div>
-
           <div className="max-w-4xl">
             {producto.fabricante && (
               <div className="mb-4">
-                <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium">
+                <Link
+                  href={`/distribuidoras/${producto.fabricante.slug}`}
+                  className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium hover:bg-white/30 transition-colors"
+                >
                   {producto.fabricante.nombre}
-                </span>
+                </Link>
               </div>
             )}
             <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 text-white">
@@ -93,30 +79,24 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
         </div>
       </section>
-
-      {/* About Section */}
-      <section className="py-20 bg-background">
+      {/* Main Content - 2 Column Grid */}
+      <section className="py-12 lg:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
-                Sobre {producto.nombre}
-              </h2>
-              <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
-            </div>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+              {/* Left Column - Gallery + Actions + Manufacturer */}
+              <div>
+                <div className="lg:sticky lg:top-24 space-y-6">
+                  {producto.imagenes && producto.imagenes.length > 0 && (
+                    <ProductImageGallery
+                      images={producto.imagenes}
+                      productName={producto.nombre}
+                    />
+                  )}
 
-            <div className="prose prose-lg prose-slate max-w-none mx-auto">
-              {/* Gallery Carousel - Floated Right */}
-              {producto.imagenes && producto.imagenes.length > 0 && (
-                <div className="relative float-right ml-8 mb-8 w-full sm:w-2/3 lg:w-1/2">
-                  <ProductImageGallery
-                    images={producto.imagenes}
-                    productName={producto.nombre}
-                  />
-
-                  {/* Technical Data Sheet Download */}
+                  {/* Technical Data Sheet */}
                   {producto.ficha_tecnica && (
-                    <div className="mt-4 flex justify-center">
+                    <div className="flex justify-center">
                       <FichaTecnicaModal
                         productoNombre={producto.nombre}
                         fichaTecnicaUrl={producto.ficha_tecnica.url}
@@ -126,36 +106,75 @@ export default async function ProductPage({ params }: PageProps) {
                       />
                     </div>
                   )}
+
+                  {/* Manufacturer Card */}
+                  {producto.fabricante && (
+                    <Card className="p-5 border-border/50">
+                      <Link
+                        href={`/distribuidoras/${producto.fabricante.slug}`}
+                        className="flex items-center gap-4 group"
+                      >
+                        <div className="flex items-center justify-center w-11 h-11 rounded-full bg-primary/10 text-primary flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                          <Factory className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">
+                            Fabricado por
+                          </p>
+                          <p className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {producto.fabricante.nombre}
+                          </p>
+                        </div>
+                        <ChevronRight className="h-4 w-4 ml-auto text-muted-foreground group-hover:text-primary transition-colors" />
+                      </Link>
+                    </Card>
+                  )}
                 </div>
-              )}
+              </div>
 
-              {/* Text Content */}
-              {documentToReactComponents(
-                producto.descripcion_larga,
-                renderOptions
-              )}
-
-              {/* Clear float to ensure subsequent content flows correctly */}
-              <div className="clear-both"></div>
+              {/* Right Column - Description */}
+              <div className="prose prose-lg prose-slate max-w-none">
+                {documentToReactComponents(
+                  producto.descripcion_larga,
+                  renderOptions
+                )}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/10">
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border-t border-border/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
+              <MessageCircle className="h-8 w-8 text-primary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
               ¿Interesado en {producto.nombre}?
             </h2>
-            <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
               Contáctanos para obtener más información sobre este producto
               {producto.fabricante &&
                 ` y otros de ${producto.fabricante.nombre}`}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="bg-[#25D366] hover:bg-[#20BD5A] text-white px-8 py-3 shadow-lg"
+              >
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="h-5 w-5 mr-2" />
+                  Consultar por WhatsApp
+                </a>
+              </Button>
               <Button
                 asChild
                 size="lg"

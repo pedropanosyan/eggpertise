@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     const templateData = {
       email,
       productoNombre,
-      fichaTecnicaUrl,
+      fichaTecnicaUrl: encodeURI(fichaTecnicaUrl),
       fichaTecnicaNombre,
     };
 
