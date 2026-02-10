@@ -59,25 +59,16 @@ export function Header() {
             <Image src={Logo} alt="EggPertise" width={110} height={110} />
           </a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - centered links */}
           <nav className="hidden md:flex items-center space-x-8">
             <a
               href="#quienes-somos"
               onClick={(e) => handleSmoothScroll(e, "quienes-somos")}
               className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
             >
-              <span className="relative z-10">Quiénes Somos</span>
+              <span className="relative z-10">Quienes somos</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
-            {/*
-              <a
-                href="#que-hacemos"
-                onClick={(e) => handleSmoothScroll(e, "que-hacemos")}
-                className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
-              >
-                <span className="relative z-10">Que Hacemos</span>
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </a>*/}
             <a
               href="#distribuidoras"
               onClick={(e) => handleSmoothScroll(e, "distribuidoras")}
@@ -86,25 +77,18 @@ export function Header() {
               <span className="relative z-10">Marcas/Productos</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
-            {/*
-            <a
-              href="#logros"
-              onClick={(e) => handleSmoothScroll(e, "logros")}
-              className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
-            >
-              <span className="relative z-10">Novedades</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-            </a>*/}
-            <Button
+          </nav>
+
+          {/* Desktop CTA */}
+          <Button
             onClick={(e) => {
               e.preventDefault();
               handleSmoothScroll(e as any, "contacto");
             }}
-            className="hidden md:inline-flex cursor-pointer"
+            className="hidden md:inline-flex cursor-pointer rounded-full px-6"
           >
-            Consultar
+            Contactanos
           </Button>
-          </nav>
           
 
           {/* Mobile menu button */}

@@ -26,38 +26,39 @@ export function ProductsSection({ productos }: ProductsSectionProps) {
         />
       </div>
 
-      <div className="mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center space-y-4 mb-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-left space-y-4 mb-10">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
             Productos Principales
           </h2>
         </div>
 
         {productos.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-8xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-6 lg:gap-8 mx-auto max-w-7xl">
             {productos.map((producto) => (
               <Card
                 key={producto.id}
-                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col h-full"
+                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col h-full w-full max-w-[300px]"
               >
                 {/* Product Image */}
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-44 overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
                   <Image
                     src={producto.logo_portada}
                     alt={producto.nombre}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    width={400}
+                    height={400}
+                    className="object-contain max-w-[80%] max-h-[80%]"
                   />
                 </div>
 
-                <CardHeader className="text-center pb-2 pt-4">
-                  <CardTitle className="text-xl font-serif font-bold text-foreground mb-1">
+                <CardHeader className="text-center pt-3">
+                  <CardTitle className="text-xl font-serif font-bold text-foreground">
                     {producto.nombre}
                   </CardTitle>
                 </CardHeader>
 
-                <CardContent className="px-6 pb-6 flex flex-col flex-grow">
-                  <p className="text-foreground/80 text-center leading-relaxed mb-4 text-base flex-grow">
+                <CardContent className="px-6 pb-4 flex flex-col flex-grow">
+                  <p className="text-foreground/80 text-center leading-relaxed mb-3 text-base flex-grow">
                     {producto.descripcion_corta}
                   </p>
 

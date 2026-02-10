@@ -13,20 +13,20 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/10"></div>
 
-      <div className="relative container mx-auto px-6 sm:px-8 lg:px-12 text-center">
-        <div className="max-w-5xl mx-auto">
+      <div className="relative container mx-auto px-6 sm:px-8 lg:px-12 text-left">
+        <div className="max-w-4xl">
           <div className="space-y-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-2xl">
               Soluciones Reales para tu Producción
             </h1>
 
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed font-medium max-w-4xl mx-auto drop-shadow-lg">
+            <p className="text-xl md:text-2xl text-white/90 leading-relaxed font-medium max-w-2xl drop-shadow-lg">
               Desde EggPertise acercamos la innovación tecnológica global a
               productores avícolas y porcinos de Latinoamérica, combinando
               asesoramiento personalizado y soluciones integrales.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-start items-center pt-4">
               <Button
                 asChild
                 variant="secondary"

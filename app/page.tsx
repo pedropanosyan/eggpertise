@@ -7,6 +7,7 @@ import { AchievementsBanner } from "@/components/achievements-banner";
 import { ServicesSection } from "@/components/services-section";
 import { DistributorsSection } from "@/components/distributors-section";
 import { ProductsSection } from "@/components/products-section";
+import { CtaBanner } from "@/components/cta-banner";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { getFabricantes, getProductosPrincipales } from "@/lib/contentful";
@@ -21,6 +22,7 @@ export default async function HomePage() {
       <HeroSection />
       <DistributorsSection distributors={distributors} />
       <ProductsSection productos={productosPrincipales} />
+      <CtaBanner />
       <AboutSection />
       {/*<ServicesSection />*/}
       {/*<AchievementsBanner />*/}

@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     // Send email using Resend
     const data = await resend.emails.send({
-      from: "EggPertise Contact Form <onboarding@resend.dev>",
+      from: "EggPertise Contact Form <noreply@eggpertise.com>",
       to: [process.env.CONTACT_EMAIL || "info@eggpertise.com"],
       replyTo: email,
       subject: `Nueva consulta de ${nombre} - ${empresa}`,

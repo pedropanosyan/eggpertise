@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
     // Send notification to admin
     await resend.emails.send({
-      from: "EggPertise <onboarding@resend.dev>",
+      from: "EggPertise <noreply@eggpertise.com>",
       to: [process.env.CONTACT_EMAIL || "info@eggpertise.com"],
       subject: `Nueva solicitud de ficha técnica: ${productoNombre}`,
       html: getFichaTecnicaNotificationTemplate(templateData),
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
 
     // Send ficha técnica to user
     await resend.emails.send({
-      from: "EggPertise <onboarding@resend.dev>",
+      from: "EggPertise <noreply@eggpertise.com>",
       to: [email],
       subject: `Ficha Técnica - ${productoNombre}`,
       html: getFichaTecnicaUserTemplate(templateData),

@@ -28,8 +28,8 @@ export function DistributorsSection({
         />
       </div>
 
-      <div className="mx-auto px-6 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
-        <div className="text-center space-y-4 mb-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-left space-y-4 mb-10">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
             Marcas Representadas
           </h2>
