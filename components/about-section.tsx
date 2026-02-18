@@ -14,13 +14,15 @@ export function AboutSection() {
 
         {/* Nuestra Historia - Image left, text right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
-            <Image
-              src="/landing/hero.jpg"
-              alt="Nuestra Historia"
-              fill
-              className="object-cover"
-            />
+          <div className="flex justify-center">
+            <div className="relative w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
+              <Image
+                src="/landing/nacho.jpeg"
+                alt="Ignacio Pernicone - Fundador de EggPertise"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
 
           <div className="space-y-6">
@@ -86,6 +88,42 @@ export function AboutSection() {
             <div className="flex items-center gap-3 p-6 bg-secondary/50 rounded-lg min-h-[100px]">
               <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
               <span className="font-medium">Garantía Extendida</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Nuestro Equipo - Image left, text right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-20">
+          <div className="flex justify-center">
+            <div className="relative w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
+              <Image
+                src="/landing/team.jpeg"
+                alt="Equipo de EggPertise"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-3xl md:text-4xl font-serif font-bold">
+              Nuestro equipo
+            </h3>
+            <div className="space-y-4 text-muted-foreground">
+              <p className="leading-relaxed">
+                Detrás de EggPertise hay un equipo humano de primer nivel,
+                sólido y dinámico, que comparte la misma pasión por la
+                industria avícola y porcina. Cada integrante aporta
+                experiencia, conocimiento técnico y un compromiso genuino con
+                el éxito de nuestros clientes.
+              </p>
+              <p className="leading-relaxed">
+                Trabajamos de manera cercana y colaborativa, entendiendo que
+                cada proyecto es único. Nuestro equipo acompaña a los
+                productores en cada etapa, desde el asesoramiento inicial
+                hasta la implementación y el soporte continuo, asegurando
+                soluciones que generen resultados reales y sostenibles.
+              </p>
             </div>
           </div>
         </div>
