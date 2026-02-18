@@ -26,7 +26,10 @@ export function FichaTecnicaModal({
   fichaTecnicaNombre,
 }: FichaTecnicaModalProps) {
   const [open, setOpen] = useState(false);
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -43,7 +46,10 @@ export function FichaTecnicaModal({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          nombre,
+          apellido,
           email,
+          telefono,
           productoNombre,
           fichaTecnicaUrl,
           fichaTecnicaNombre,
@@ -69,7 +75,10 @@ export function FichaTecnicaModal({
     if (!newOpen) {
       // Reset state when closing
       setTimeout(() => {
+        setNombre("");
+        setApellido("");
         setEmail("");
+        setTelefono("");
         setIsSuccess(false);
         setError("");
       }, 200);
@@ -118,17 +127,44 @@ export function FichaTecnicaModal({
                 Descargar ficha técnica
               </DialogTitle>
               <DialogDescription className="text-center">
-                Ingresá tu email y te enviaremos la ficha técnica de{" "}
+                Completá tus datos y te enviaremos la ficha técnica de{" "}
                 <strong>{productoNombre}</strong>.
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit}>
-              <div className="py-4">
+              <div className="py-4 space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <Input
+                    type="text"
+                    placeholder="Nombre"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                    required
+                    disabled={isLoading}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Apellido"
+                    value={apellido}
+                    onChange={(e) => setApellido(e.target.value)}
+                    required
+                    disabled={isLoading}
+                  />
+                </div>
                 <Input
                   type="email"
                   placeholder="tu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={isLoading}
+                  className="w-full"
+                />
+                <Input
+                  type="tel"
+                  placeholder="Teléfono"
+                  value={telefono}
+                  onChange={(e) => setTelefono(e.target.value)}
                   required
                   disabled={isLoading}
                   className="w-full"
@@ -146,7 +182,7 @@ export function FichaTecnicaModal({
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" disabled={isLoading || !email}>
+                <Button type="submit" disabled={isLoading || !email || !nombre || !apellido || !telefono}>
                   {isLoading ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />

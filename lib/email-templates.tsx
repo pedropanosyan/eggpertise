@@ -6,7 +6,10 @@ interface ContactFormData {
 }
 
 interface FichaTecnicaRequestData {
+  nombre: string;
+  apellido: string;
   email: string;
+  telefono: string;
   productoNombre: string;
   fichaTecnicaUrl: string;
   fichaTecnicaNombre: string;
@@ -15,7 +18,7 @@ interface FichaTecnicaRequestData {
 export function getFichaTecnicaNotificationTemplate(
   data: FichaTecnicaRequestData
 ): string {
-  const { email, productoNombre, fichaTecnicaNombre } = data;
+  const { nombre, apellido, email, telefono, productoNombre, fichaTecnicaNombre } = data;
   const currentDate = new Date().toLocaleString("es-AR", {
     timeZone: "America/Argentina/Buenos_Aires",
   });
@@ -80,8 +83,18 @@ export function getFichaTecnicaNotificationTemplate(
         </div>
         <div class="content">
           <div class="field">
-            <span class="label">Email del interesado:</span>
+            <span class="label">Nombre:</span>
+            <div class="value">${nombre} ${apellido}</div>
+          </div>
+
+          <div class="field">
+            <span class="label">Email:</span>
             <div class="value"><a href="mailto:${email}">${email}</a></div>
+          </div>
+
+          <div class="field">
+            <span class="label">Teléfono:</span>
+            <div class="value">${telefono}</div>
           </div>
 
           <div class="field">
