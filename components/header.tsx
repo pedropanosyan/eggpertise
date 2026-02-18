@@ -74,7 +74,15 @@ export function Header() {
               onClick={(e) => handleSmoothScroll(e, "distribuidoras")}
               className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
             >
-              <span className="relative z-10">Marcas/Productos</span>
+              <span className="relative z-10">Marcas</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a
+              href="#productos-principales"
+              onClick={(e) => handleSmoothScroll(e, "productos-principales")}
+              className="relative text-foreground hover:text-primary transition-all duration-300 group cursor-pointer"
+            >
+              <span className="relative z-10">Productos</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </a>
           </nav>
@@ -136,7 +144,14 @@ export function Header() {
                 onClick={(e) => handleSmoothScroll(e, "distribuidoras")}
                 className="block px-3 py-2 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-all duration-200 transform hover:translate-x-1 cursor-pointer"
               >
-                Marcas/Productos
+                Marcas
+              </a>
+              <a
+                href="#productos-principales"
+                onClick={(e) => handleSmoothScroll(e, "productos-principales")}
+                className="block px-3 py-2 text-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-all duration-200 transform hover:translate-x-1 cursor-pointer"
+              >
+                Productos
               </a>
               {/*<a
                 href="#logros"
