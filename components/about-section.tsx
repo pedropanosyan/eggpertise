@@ -14,15 +14,13 @@ export function AboutSection() {
 
         {/* Nuestra Historia - Image left, text right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
-              <Image
-                src="/landing/nacho.jpeg"
-                alt="Ignacio Pernicone - Fundador de EggPertise"
-                fill
-                className="object-cover"
-              />
-            </div>
+          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image
+              src="/landing/nacho.jpeg"
+              alt="Ignacio Pernicone - Fundador de EggPertise"
+              fill
+              className="object-cover"
+            />
           </div>
 
           <div className="space-y-6">
@@ -94,15 +92,13 @@ export function AboutSection() {
 
         {/* Nuestro Equipo - Image left, text right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-20">
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
-              <Image
-                src="/landing/team.jpeg"
-                alt="Equipo de EggPertise"
-                fill
-                className="object-cover"
-              />
-            </div>
+          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+            <Image
+              src="/landing/team.jpeg"
+              alt="Equipo de EggPertise"
+              fill
+              className="object-cover"
+            />
           </div>
 
           <div className="space-y-6">
