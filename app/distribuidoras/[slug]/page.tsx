@@ -1,4 +1,4 @@
-export const revalidate = 30; // 5 minutes
+export const revalidate = 14400; // 4 hours
 
 import { notFound } from "next/navigation";
 import { Header } from "@/components/header";

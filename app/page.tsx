@@ -1,4 +1,4 @@
-export const revalidate = 0; // 5 minutes
+export const revalidate = 14400; // 4 hours
 
 import { Header } from "@/components/header";
 import { HeroSection } from "@/components/hero-section";
