@@ -94,7 +94,7 @@ const FABRICANTE_SLUGS_QUERY = `
 // GraphQL query for all products with complete data (for slug lookup)
 const ALL_PRODUCTOS_COMPLETE_QUERY = `
   query GetAllProductosComplete {
-    productoCollection {
+    productoCollection(limit: 50) {
       items {
         sys { id }
         nombre
@@ -102,10 +102,17 @@ const ALL_PRODUCTOS_COMPLETE_QUERY = `
         descripcionLarga {
           json
         }
+        parrafo2 {
+          json
+        }
+        bullets
+        parrafo3 {
+          json
+        }
         portada {
           url
         }
-        imagenesCollection {
+        imagenesCollection(limit: 10) {
           items {
             url
           }
@@ -113,6 +120,13 @@ const ALL_PRODUCTOS_COMPLETE_QUERY = `
         fichaTecnica {
           url
           title
+        }
+        videoCollection(limit: 3) {
+          items {
+            url
+            contentType
+            title
+          }
         }
         fabricante {
           sys { id }
@@ -187,6 +201,9 @@ interface ProductoCompleteGraphQLResponse {
   nombre: string;
   descripcionCorta: string;
   descripcionLarga: { json: Document };
+  parrafo2?: { json: Document } | null;
+  bullets?: string | null;
+  parrafo3?: { json: Document } | null;
   portada: { url: string };
   imagenesCollection: {
     items: { url: string }[];
@@ -195,6 +212,9 @@ interface ProductoCompleteGraphQLResponse {
     url: string;
     title: string;
   };
+  videoCollection?: {
+    items: { url: string; contentType: string; title: string }[];
+  } | null;
   fabricante?: {
     sys: { id: string };
     nombre: string;
@@ -238,12 +258,16 @@ export interface ProductoCompleto {
   nombre: string;
   descripcion_corta: string;
   descripcion_larga: Document;
+  parrafo2?: Document | null;
+  bullets?: string[] | null;
+  parrafo3?: Document | null;
   imagen_portada: string;
   imagenes: string[];
   ficha_tecnica?: {
     url: string;
     title: string;
   };
+  videos?: { url: string; contentType: string; title: string }[] | null;
   fabricante?: {
     id: string;
     slug: string;
@@ -301,6 +325,11 @@ function parseProductoCompletoFromGraphQL(
     nombre: item.nombre,
     descripcion_corta: item.descripcionCorta,
     descripcion_larga: item.descripcionLarga.json,
+    parrafo2: item.parrafo2?.json || null,
+    bullets: item.bullets
+      ? item.bullets.split(",").map((b) => b.trim()).filter(Boolean)
+      : null,
+    parrafo3: item.parrafo3?.json || null,
     imagen_portada: item.portada.url,
     imagenes: item.imagenesCollection.items.map((img) => img.url),
     ficha_tecnica: item.fichaTecnica
@@ -309,6 +338,9 @@ function parseProductoCompletoFromGraphQL(
           title: item.fichaTecnica.title,
         }
       : undefined,
+    videos: item.videoCollection?.items?.length
+      ? item.videoCollection.items
+      : null,
     fabricante: item.fabricante
       ? {
           id: item.fabricante.sys.id,

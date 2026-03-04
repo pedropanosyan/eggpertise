@@ -9,6 +9,7 @@ import { ProductImageGallery } from "@/components/product-image-gallery";
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { FichaTecnicaModal } from "@/components/ficha-tecnica-modal";
+import { SolicitarInfoTecnicaModal } from "@/components/solicitar-info-tecnica-modal";
 import {
   getProductoBySlug,
   getAllProductoSlugs,
@@ -98,9 +99,9 @@ export default async function ProductPage({ params }: PageProps) {
                     />
                   )}
 
-                  {/* Technical Data Sheet */}
-                  {producto.ficha_tecnica && (
-                    <div className="flex justify-center">
+                  {/* Technical Data Sheet CTA */}
+                  <div className="flex justify-center">
+                    {producto.ficha_tecnica ? (
                       <FichaTecnicaModal
                         productoNombre={producto.nombre}
                         fichaTecnicaUrl={producto.ficha_tecnica.url}
@@ -108,8 +109,12 @@ export default async function ProductPage({ params }: PageProps) {
                           producto.ficha_tecnica.title || "Ficha Técnica"
                         }
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <SolicitarInfoTecnicaModal
+                        productoNombre={producto.nombre}
+                      />
+                    )}
+                  </div>
 
                 </div>
               </div>
@@ -125,6 +130,72 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* P2 + Bullets Section */}
+      {(producto.parrafo2 || (producto.bullets && producto.bullets.length > 0)) && (
+        <section className="py-12 lg:py-20 bg-background border-t border-border/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+                {producto.parrafo2 && (
+                  <div className="prose prose-lg prose-slate max-w-none">
+                    {documentToReactComponents(producto.parrafo2, renderOptions)}
+                  </div>
+                )}
+                {producto.bullets && producto.bullets.length > 0 && (
+                  <div className="flex flex-wrap gap-3 content-start">
+                    {producto.bullets.map((bullet, i) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center px-4 py-2 rounded-lg bg-primary/10 text-primary font-medium text-sm border border-primary/20"
+                      >
+                        {bullet}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* P3 + Video Section */}
+      {(producto.parrafo3 || (producto.videos && producto.videos.length > 0)) && (
+        <section className="py-12 lg:py-20 bg-background border-t border-border/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+                {producto.videos && producto.videos.length > 0 ? (
+                  <div className="space-y-4">
+                    {producto.videos.map((video, i) => (
+                      <video
+                        key={i}
+                        src={video.url}
+                        title={video.title}
+                        controls
+                        className="w-full rounded-xl shadow-md aspect-video object-cover"
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="w-full aspect-video rounded-xl bg-muted/50 border border-border/40 flex flex-col items-center justify-center gap-3 text-muted-foreground">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                    </svg>
+                    <span className="text-sm opacity-50">Video próximamente</span>
+                  </div>
+                )}
+                {producto.parrafo3 && (
+                  <div className="prose prose-lg prose-slate max-w-none">
+                    {documentToReactComponents(producto.parrafo3, renderOptions)}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border-t border-border/30">
