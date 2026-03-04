@@ -7,7 +7,6 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import {
   Mail,
   Phone,
@@ -113,11 +112,8 @@ export function ContactSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-left mb-16">
-          <Badge variant="secondary" className="mb-4 px-4 py-2">
-            Contacto
-          </Badge>
           <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-            Escribinos para llevar tu granja al próximo nivel
+            Contacto
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
             Nuestro equipo de expertos está listo para asesorarte en cada paso

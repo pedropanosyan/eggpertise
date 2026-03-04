@@ -34,11 +34,11 @@ export function ProductsSection({ productos }: ProductsSectionProps) {
         </div>
 
         {productos.length > 0 ? (
-          <div className="flex flex-wrap justify-center gap-6 lg:gap-8 mx-auto max-w-7xl">
+          <div className="grid gap-6 lg:gap-8 mx-auto max-w-7xl justify-center" style={{ gridTemplateColumns: "repeat(auto-fit, 300px)" }}>
             {productos.map((producto) => (
               <Card
                 key={producto.id}
-                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col h-full w-full max-w-[300px]"
+                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col"
               >
                 {/* Product Image */}
                 <div className="relative h-44 overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">

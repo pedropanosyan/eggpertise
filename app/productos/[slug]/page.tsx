@@ -7,11 +7,12 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ProductImageGallery } from "@/components/product-image-gallery";
 import Link from "next/link";
-import { ChevronRight, MessageCircle, Factory } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { FichaTecnicaModal } from "@/components/ficha-tecnica-modal";
 import {
   getProductoBySlug,
   getAllProductoSlugs,
+  getProductosPrincipales,
   ProductoCompleto,
 } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
@@ -34,9 +35,12 @@ export default async function ProductPage({ params }: PageProps) {
   }
 
   const whatsappMessage = encodeURIComponent(
-    `Hola EggPertise! Quiero información sobre: ${producto.nombre}`
+    `Hola, estuve revisando la web de EggPertise y quisiera recibir asesoramiento técnico sobre ${producto.nombre}.\nNombre:\nPaís:\nTipo de producción:`
   );
   const whatsappUrl = `https://api.whatsapp.com/send/?phone=5491125155801&text=${whatsappMessage}&type=phone_number&app_absent=0`;
+
+  const todosLosProductos = await getProductosPrincipales();
+  const otrosProductos = todosLosProductos.filter((p) => p.id !== producto.id);
 
   return (
     <main className="min-h-screen">
@@ -107,28 +111,6 @@ export default async function ProductPage({ params }: PageProps) {
                     </div>
                   )}
 
-                  {/* Manufacturer Card */}
-                  {producto.fabricante && (
-                    <Card className="p-5 border-border/50">
-                      <Link
-                        href={`/distribuidoras/${producto.fabricante.slug}`}
-                        className="flex items-center gap-4 group"
-                      >
-                        <div className="flex items-center justify-center w-11 h-11 rounded-full bg-primary/10 text-primary flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                          <Factory className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">
-                            Fabricado por
-                          </p>
-                          <p className="text-base font-semibold text-foreground group-hover:text-primary transition-colors">
-                            {producto.fabricante.nombre}
-                          </p>
-                        </div>
-                        <ChevronRight className="h-4 w-4 ml-auto text-muted-foreground group-hover:text-primary transition-colors" />
-                      </Link>
-                    </Card>
-                  )}
                 </div>
               </div>
 
@@ -190,7 +172,7 @@ export default async function ProductPage({ params }: PageProps) {
                   className="px-8 py-3"
                 >
                   <Link href={`/distribuidoras/${producto.fabricante.slug}`}>
-                    Ver Más de {producto.fabricante.nombre}
+                    Explorar Soluciones {producto.fabricante.nombre.toUpperCase()}
                   </Link>
                 </Button>
               )}
@@ -198,6 +180,46 @@ export default async function ProductPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* CTA 3 - Explore More */}
+      {otrosProductos.length > 0 && (
+        <section className="py-16 bg-background border-t border-border/30">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-8">
+              Explora más soluciones EggPertise:
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {otrosProductos.map((p) => (
+                <div
+                  key={p.id}
+                  className="bg-white/10 backdrop-blur-md border border-border/20 rounded-2xl overflow-hidden flex flex-col"
+                >
+                  <div className="relative h-44 bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
+                    <Image
+                      src={p.logo_portada}
+                      alt={p.nombre}
+                      width={400}
+                      height={400}
+                      className="object-contain max-w-[80%] max-h-[80%]"
+                    />
+                  </div>
+                  <div className="p-5 flex flex-col flex-grow">
+                    <h3 className="text-lg font-serif font-bold text-foreground text-center mb-2">
+                      {p.nombre}
+                    </h3>
+                    <p className="text-sm text-foreground/70 text-center leading-relaxed flex-grow mb-4">
+                      {p.descripcion_corta}
+                    </p>
+                    <Button asChild variant="outline" className="w-full rounded-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground">
+                      <Link href={`/productos/${p.slug}`}>Ver Detalles</Link>
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </main>

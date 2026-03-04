@@ -28,7 +28,7 @@ export function AboutSection() {
               Nuestra historia
             </h3>
             <div className="space-y-4 text-muted-foreground">
-              <p className="leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 EggPertise fue fundada por Ignacio Pernicone, el 2 de Julio de
                 2025, en el Día de la Avicultura, como resultado de una vida
                 dedicada al sector. Vinculado a la industria desde los 14 años,
@@ -36,7 +36,7 @@ export function AboutSection() {
                 legado familiar, siendo la tercera generación dentro de la
                 avicultura.
               </p>
-              <p className="leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Con una profunda pasión por la innovación y el compromiso con la
                 excelencia, EggPertise representa marcas líderes de calidad
                 premium. Con un equipo humano de primer nivel, solido y
@@ -94,7 +94,7 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-20">
           <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
             <Image
-              src="/landing/team.jpeg"
+              src="/landing/team.jpg"
               alt="Equipo de EggPertise"
               fill
               className="object-cover"
@@ -106,19 +106,19 @@ export function AboutSection() {
               Nuestro equipo
             </h3>
             <div className="space-y-4 text-muted-foreground">
-              <p className="leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Detrás de EggPertise hay un equipo humano de primer nivel,
-                sólido y dinámico, que comparte la misma pasión por la
-                industria avícola y porcina. Cada integrante aporta
-                experiencia, conocimiento técnico y un compromiso genuino con
-                el éxito de nuestros clientes.
+                sólido y dinámico, que comparte la misma pasión por la industria
+                avícola y porcina. Cada integrante aporta experiencia,
+                conocimiento técnico y un compromiso genuino con el éxito de
+                nuestros clientes.
               </p>
-              <p className="leading-relaxed">
+              <p className="text-lg leading-relaxed">
                 Trabajamos de manera cercana y colaborativa, entendiendo que
                 cada proyecto es único. Nuestro equipo acompaña a los
-                productores en cada etapa, desde el asesoramiento inicial
-                hasta la implementación y el soporte continuo, asegurando
-                soluciones que generen resultados reales y sostenibles.
+                productores en cada etapa, desde el asesoramiento inicial hasta
+                la implementación y el soporte continuo, asegurando soluciones
+                que generen resultados reales y sostenibles.
               </p>
             </div>
           </div>
