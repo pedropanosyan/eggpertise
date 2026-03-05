@@ -99,7 +99,7 @@ export function ProductImageGallery({
 
         {/* Thumbnails */}
         {images.length > 1 && (
-          <div className="flex gap-2 justify-center px-1">
+          <div className="hidden sm:flex gap-2 justify-center px-1">
             {images.map((imagen, index) => (
               <button
                 key={index}

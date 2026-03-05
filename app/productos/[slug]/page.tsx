@@ -7,13 +7,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ProductImageGallery } from "@/components/product-image-gallery";
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, CheckCircle2 } from "lucide-react";
 import { FichaTecnicaModal } from "@/components/ficha-tecnica-modal";
 import { SolicitarInfoTecnicaModal } from "@/components/solicitar-info-tecnica-modal";
 import {
   getProductoBySlug,
   getAllProductoSlugs,
-  getProductosPrincipales,
+  getProductosByFabricante,
   ProductoCompleto,
 } from "@/lib/contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
@@ -40,8 +40,11 @@ export default async function ProductPage({ params }: PageProps) {
   );
   const whatsappUrl = `https://api.whatsapp.com/send/?phone=5491125155801&text=${whatsappMessage}&type=phone_number&app_absent=0`;
 
-  const todosLosProductos = await getProductosPrincipales();
-  const otrosProductos = todosLosProductos.filter((p) => p.id !== producto.id);
+  const otrosProductos = producto.fabricante
+    ? (await getProductosByFabricante(producto.fabricante.id))
+        .filter((p) => p.id !== producto.id)
+        .slice(0, 4)
+    : [];
 
   return (
     <main className="min-h-screen">
@@ -133,7 +136,7 @@ export default async function ProductPage({ params }: PageProps) {
 
       {/* P2 + Bullets Section */}
       {(producto.parrafo2 || (producto.bullets && producto.bullets.length > 0)) && (
-        <section className="py-12 lg:py-20 bg-background border-t border-border/30">
+        <section className="py-12 lg:py-20 bg-slate-100 dark:bg-slate-900">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
@@ -143,14 +146,15 @@ export default async function ProductPage({ params }: PageProps) {
                   </div>
                 )}
                 {producto.bullets && producto.bullets.length > 0 && (
-                  <div className="flex flex-wrap gap-3 content-start">
+                  <div className="grid grid-cols-2 gap-3">
                     {producto.bullets.map((bullet, i) => (
-                      <span
+                      <div
                         key={i}
-                        className="inline-flex items-center px-4 py-2 rounded-lg bg-primary/10 text-primary font-medium text-sm border border-primary/20"
+                        className="flex items-center gap-3 px-5 py-5 rounded-xl bg-white dark:bg-slate-700"
                       >
-                        {bullet}
-                      </span>
+                        <CheckCircle2 className="shrink-0 text-green-500" size={24} />
+                        <span className="text-base font-medium text-foreground">{bullet}</span>
+                      </div>
                     ))}
                   </div>
                 )}
@@ -259,7 +263,7 @@ export default async function ProductPage({ params }: PageProps) {
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-8">
               Explora más soluciones EggPertise:
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {otrosProductos.map((p) => (
                 <div
                   key={p.id}
