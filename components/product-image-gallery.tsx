@@ -74,14 +74,16 @@ export function ProductImageGallery({
                 <CarouselItem key={index} className="pl-2 basis-full">
                   <Card className="bg-muted/50 border border-border/50 group overflow-hidden p-0 rounded-xl">
                     <div
-                      className="relative h-72 sm:h-80 lg:h-96 overflow-hidden cursor-zoom-in"
+                      className="relative overflow-hidden cursor-zoom-in"
                       onClick={() => handleImageClick(index)}
                     >
                       <Image
                         src={imagen}
                         alt={`${productName} - Imagen ${index + 1}`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        width={800}
+                        height={600}
+                        style={{ width: "100%", height: "auto" }}
+                        className="group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   </Card>
