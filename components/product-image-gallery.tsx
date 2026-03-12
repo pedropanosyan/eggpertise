@@ -72,7 +72,7 @@ export function ProductImageGallery({
             <CarouselContent className="-ml-2">
               {images.map((imagen, index) => (
                 <CarouselItem key={index} className="pl-2 basis-full">
-                  <Card className="bg-muted/50 border border-border/50 group overflow-hidden p-0 rounded-xl">
+                  <Card className="bg-white border border-border/50 group overflow-hidden p-0 rounded-xl">
                     <div
                       className="relative overflow-hidden cursor-zoom-in"
                       onClick={() => handleImageClick(index)}

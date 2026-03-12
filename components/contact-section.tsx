@@ -112,12 +112,11 @@ export function ContactSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-left mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
             Contacto
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
-            Nuestro equipo de expertos está listo para asesorarte en cada paso
-            hacia la innovación
+          <p className="text-xl italic text-muted-foreground max-w-3xl leading-relaxed">
+            Nuestro equipo de expertos está listo para asesorarte en cada paso hacia la innovación. Déjanos tu consulta y te responderemos a la brevedad.
           </p>
         </div>
 
@@ -125,15 +124,6 @@ export function ContactSection() {
           <div className="grid grid-cols-1 lg:grid-cols-3 min-h-[450px]">
             {/* Contact Form */}
             <div className="col-span-1 lg:col-span-2 p-8 flex flex-col justify-center">
-              <div className="mb-8">
-                <h2 className="text-2xl font-serif font-bold mb-4">
-                  Contáctenos
-                </h2>
-                <p className="text-muted-foreground">
-                  Déjenos su consulta y haremos todo lo posible por responderle
-                  a la brevedad.
-                </p>
-              </div>
               {isSubmitted ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">

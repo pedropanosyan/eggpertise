@@ -34,7 +34,7 @@ export function ProductsSection({ productos }: ProductsSectionProps) {
         </div>
 
         {productos.length > 0 ? (
-          <div className="grid gap-6 lg:gap-8 mx-auto max-w-7xl justify-center" style={{ gridTemplateColumns: "repeat(auto-fit, 300px)" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mx-auto max-w-6xl">
             {productos.map((producto) => (
               <Card
                 key={producto.id}

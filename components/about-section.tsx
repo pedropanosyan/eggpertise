@@ -7,7 +7,7 @@ export function AboutSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-left mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold">
             Transformando la Producción Avícola y Porcina
           </h2>
         </div>
@@ -71,22 +71,17 @@ export function AboutSection() {
           </div>
 
           <div className="grid grid-cols-2 grid-rows-2 gap-4">
-            <div className="flex items-center gap-3 p-6 bg-secondary/50 rounded-lg min-h-[100px]">
-              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-              <span className="font-medium">Asesoramiento Personalizado</span>
-            </div>
-            <div className="flex items-center gap-3 p-6 bg-secondary/50 rounded-lg min-h-[100px]">
-              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-              <span className="font-medium">Soporte Técnico 24/7</span>
-            </div>
-            <div className="flex items-center gap-3 p-6 bg-secondary/50 rounded-lg min-h-[100px]">
-              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-              <span className="font-medium">Instalación Especializada</span>
-            </div>
-            <div className="flex items-center gap-3 p-6 bg-secondary/50 rounded-lg min-h-[100px]">
-              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-              <span className="font-medium">Garantía Extendida</span>
-            </div>
+            {[
+              "Tecnología líder mundial",
+              "Soporte técnico especializado",
+              "Acompañamiento local en LATAM",
+              "Soluciones a medida",
+            ].map((text) => (
+              <div key={text} className="flex items-center gap-3 p-6 bg-secondary/50 rounded-lg min-h-[100px]">
+                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                <span className="font-bold">{text}</span>
+              </div>
+            ))}
           </div>
         </div>
 

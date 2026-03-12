@@ -16,8 +16,11 @@ export function HeroSection() {
       <div className="relative container mx-auto px-6 sm:px-8 lg:px-12 text-left">
         <div className="max-w-4xl">
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-2xl">
-              Soluciones Reales para tu Producción
+            <h1
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight drop-shadow-2xl"
+              style={{ fontFamily: "'Libre Baskerville', serif" }}
+            >
+              Soluciones Reales para<br />tu Producción
             </h1>
 
             <p className="text-xl md:text-2xl text-white/90 leading-relaxed font-medium max-w-2xl drop-shadow-lg">

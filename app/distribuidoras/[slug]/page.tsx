@@ -221,7 +221,7 @@ export default async function DistributorPage({ params }: PageProps) {
               rel="noopener noreferrer"
               className="block hover:scale-105 transition-transform duration-300"
             >
-              <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 rounded-full border-2 sm:border-3 lg:border-4 border-white/80 overflow-hidden shadow-xl bg-white/20 backdrop-blur-md cursor-pointer">
+              <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 rounded-full border-2 sm:border-3 lg:border-4 border-white overflow-hidden shadow-xl bg-white cursor-pointer">
                 <div className="absolute inset-2 sm:inset-[10px] md:inset-3 rounded-full overflow-hidden">
                   <Image
                     src={distributor.logo}
@@ -233,7 +233,7 @@ export default async function DistributorPage({ params }: PageProps) {
               </div>
             </Link>
           ) : (
-            <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 rounded-full border-2 sm:border-3 lg:border-4 border-white/80 overflow-hidden shadow-xl bg-white/20 backdrop-blur-md">
+            <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 rounded-full border-2 sm:border-3 lg:border-4 border-white overflow-hidden shadow-xl bg-white">
               <div className="absolute inset-2 sm:inset-[10px] md:inset-3 rounded-full overflow-hidden">
                 <Image
                   src={distributor.logo}
@@ -289,13 +289,13 @@ export default async function DistributorPage({ params }: PageProps) {
       )}
 
       {/* Contact Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/10">
+      <section className="py-20 bg-primary">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
               ¿Interesado en {distributor.nombre}?
             </h2>
-            <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
+            <p className="text-xl text-white/70 mb-12 leading-relaxed">
               Contáctanos para obtener más información sobre nuestros productos
               y servicios
             </p>
@@ -304,11 +304,11 @@ export default async function DistributorPage({ params }: PageProps) {
               <Button
                 asChild
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3"
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3"
               >
                 <Link href="/#contacto">Contactar Ahora</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="px-8 py-3">
+              <Button asChild size="lg" className="bg-white hover:bg-white/90 text-primary border-0 px-8 py-3">
                 <Link href="/#distribuidoras">Ver Otros Fabricantes</Link>
               </Button>
             </div>

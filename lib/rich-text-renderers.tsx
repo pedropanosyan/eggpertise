@@ -47,7 +47,7 @@ export const renderOptions = {
     [BLOCKS.LIST_ITEM]: (node: any, children: any) => (
       <li className="flex items-start leading-7 text-foreground/90">
         <span className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-3 mr-4"></span>
-        <span className="flex-1">{children}</span>
+        <span className="flex-1 [&_p]:mb-0">{children}</span>
       </li>
     ),
     [BLOCKS.QUOTE]: (node: any, children: any) => (

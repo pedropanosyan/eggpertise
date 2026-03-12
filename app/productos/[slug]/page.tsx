@@ -202,16 +202,16 @@ export default async function ProductPage({ params }: PageProps) {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border-t border-border/30">
+      <section className="py-20 bg-primary">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
-              <MessageCircle className="h-8 w-8 text-primary" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-6">
+              <MessageCircle className="h-8 w-8 text-white" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
               ¿Interesado en {producto.nombre}?
             </h2>
-            <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
+            <p className="text-lg text-white/70 mb-10 leading-relaxed">
               Contáctanos para obtener más información sobre este producto
               {producto.fabricante &&
                 ` y otros de ${producto.fabricante.nombre}`}
@@ -235,7 +235,7 @@ export default async function ProductPage({ params }: PageProps) {
               <Button
                 asChild
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3"
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3"
               >
                 <Link href="/#contacto">Contactar Ahora</Link>
               </Button>
@@ -244,7 +244,7 @@ export default async function ProductPage({ params }: PageProps) {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="px-8 py-3"
+                  className="bg-white hover:bg-white/90 text-primary border-0 px-8 py-3"
                 >
                   <Link href={`/distribuidoras/${producto.fabricante.slug}`}>
                     Explorar Soluciones {producto.fabricante.nombre.toUpperCase()}
