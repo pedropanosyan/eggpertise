@@ -21,6 +21,23 @@ export const metadata: Metadata = {
     shortcut: "/brand/favicon.png",
     apple: "/brand/favicon.png",
   },
+  openGraph: {
+    title: "EggPertise - Soluciones Integrales para Producción Avícola y Porcina",
+    description:
+      "Desde EggPertise acercamos la innovación tecnológica global a productores avícolas y porcinos de Latinoamérica, combinando asesoramiento personalizado y soluciones integrales.",
+    url: "https://www.eggpertise.com",
+    siteName: "EggPertise",
+    images: [
+      {
+        url: "https://www.eggpertise.com/brand/og-image.jpg",
+        width: 720,
+        height: 1000,
+        alt: "EggPertise - Soluciones para Producción Avícola y Porcina",
+      },
+    ],
+    locale: "es_AR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
