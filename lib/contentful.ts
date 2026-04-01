@@ -128,6 +128,7 @@ const ALL_PRODUCTOS_COMPLETE_QUERY = `
             title
           }
         }
+        youtubeUrl
         fabricante {
           sys { id }
           nombre
@@ -215,6 +216,7 @@ interface ProductoCompleteGraphQLResponse {
   videoCollection?: {
     items: { url: string; contentType: string; title: string }[];
   } | null;
+  youtubeUrl?: string | null;
   fabricante?: {
     sys: { id: string };
     nombre: string;
@@ -268,6 +270,7 @@ export interface ProductoCompleto {
     title: string;
   };
   videos?: { url: string; contentType: string; title: string }[] | null;
+  youtubeUrl?: string | null;
   fabricante?: {
     id: string;
     slug: string;
@@ -341,6 +344,7 @@ function parseProductoCompletoFromGraphQL(
     videos: item.videoCollection?.items?.length
       ? item.videoCollection.items
       : null,
+    youtubeUrl: item.youtubeUrl || null,
     fabricante: item.fabricante
       ? {
           id: item.fabricante.sys.id,

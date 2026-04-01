@@ -165,12 +165,26 @@ export default async function ProductPage({ params }: PageProps) {
       )}
 
       {/* P3 + Video Section */}
-      {(producto.parrafo3 || (producto.videos && producto.videos.length > 0)) && (
+      {(producto.parrafo3 || (producto.videos && producto.videos.length > 0) || producto.youtubeUrl) && (
         <section className="py-12 lg:py-20 bg-background border-t border-border/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-                {producto.videos && producto.videos.length > 0 ? (
+                {producto.youtubeUrl ? (
+                  <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${
+                        producto.youtubeUrl.includes("youtu.be/")
+                          ? producto.youtubeUrl.split("youtu.be/")[1]?.split("?")[0]
+                          : new URLSearchParams(producto.youtubeUrl.split("?")[1]).get("v")
+                      }`}
+                      title="Video del producto"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                ) : producto.videos && producto.videos.length > 0 ? (
                   <div className="space-y-4">
                     {producto.videos.map((video, i) => (
                       <video
