@@ -2,6 +2,7 @@ interface ContactFormData {
   nombre: string;
   email: string;
   empresa: string;
+  pais: string;
   mensaje: string;
 }
 
@@ -10,6 +11,7 @@ interface FichaTecnicaRequestData {
   apellido: string;
   email: string;
   telefono: string;
+  pais: string;
   productoNombre: string;
   fichaTecnicaUrl: string;
   fichaTecnicaNombre: string;
@@ -18,7 +20,7 @@ interface FichaTecnicaRequestData {
 export function getFichaTecnicaNotificationTemplate(
   data: FichaTecnicaRequestData
 ): string {
-  const { nombre, apellido, email, telefono, productoNombre, fichaTecnicaNombre } = data;
+  const { nombre, apellido, email, telefono, pais, productoNombre, fichaTecnicaNombre } = data;
   const currentDate = new Date().toLocaleString("es-AR", {
     timeZone: "America/Argentina/Buenos_Aires",
   });
@@ -95,6 +97,11 @@ export function getFichaTecnicaNotificationTemplate(
           <div class="field">
             <span class="label">Teléfono:</span>
             <div class="value">${telefono}</div>
+          </div>
+
+          <div class="field">
+            <span class="label">País:</span>
+            <div class="value">${pais}</div>
           </div>
 
           <div class="field">
@@ -199,7 +206,7 @@ export function getFichaTecnicaUserTemplate(
 }
 
 export function getContactFormEmailTemplate(formData: ContactFormData): string {
-  const { nombre, email, empresa, mensaje } = formData;
+  const { nombre, email, empresa, pais, mensaje } = formData;
   const currentDate = new Date().toLocaleString("es-AR", {
     timeZone: "America/Argentina/Buenos_Aires",
   });
@@ -283,6 +290,11 @@ export function getContactFormEmailTemplate(formData: ContactFormData): string {
           <div class="field">
             <span class="label">Empresa:</span>
             <div class="value">${empresa}</div>
+          </div>
+
+          <div class="field">
+            <span class="label">País:</span>
+            <div class="value">${pais}</div>
           </div>
           
           <div class="field">

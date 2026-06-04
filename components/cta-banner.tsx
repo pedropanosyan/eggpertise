@@ -11,7 +11,7 @@ export function CtaBanner() {
             <MessageCircle className="w-8 h-8 text-primary-foreground" />
           </div>
         </div>
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary-foreground mb-8 whitespace-nowrap">
+        <h2 className="mx-auto max-w-5xl text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-primary-foreground mb-8 leading-tight text-balance">
           Escribinos para llevar a tu granja al próximo nivel
         </h2>
         <Button

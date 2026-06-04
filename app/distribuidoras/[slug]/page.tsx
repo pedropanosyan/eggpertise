@@ -267,12 +267,9 @@ export default async function DistributorPage({ params }: PageProps) {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
                   Productos de {distributor.nombre}
                 </h2>
-                <p className="text-xl text-muted-foreground mt-4 max-w-2xl mx-auto">
-                  Descubre nuestra amplia gama de productos de alta calidad
-                </p>
               </div>
 
               {productGroups.groups.map(([categoriaKey, productos]) => (

@@ -26,6 +26,7 @@ export function ContactSection() {
     nombre: "",
     email: "",
     empresa: "",
+    pais: "",
     mensaje: "",
   });
 
@@ -43,6 +44,7 @@ export function ContactSection() {
       newErrors.email = "El email no es válido";
     }
     if (!formData.empresa.trim()) newErrors.empresa = "La empresa es requerida";
+    if (!formData.pais.trim()) newErrors.pais = "El país es requerido";
     if (!formData.mensaje.trim()) newErrors.mensaje = "El mensaje es requerido";
 
     setErrors(newErrors);
@@ -79,6 +81,7 @@ export function ContactSection() {
           nombre: "",
           email: "",
           empresa: "",
+          pais: "",
           mensaje: "",
         });
         setIsSubmitted(false);
@@ -192,6 +195,24 @@ export function ContactSection() {
                     />
                     {errors.empresa && (
                       <p className="text-sm text-red-500">{errors.empresa}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Input
+                      placeholder="País*"
+                      value={formData.pais}
+                      onChange={(e) =>
+                        handleInputChange("pais", e.target.value)
+                      }
+                      className={`transition-all duration-200 ${
+                        errors.pais
+                          ? "border-red-500 focus:border-red-500"
+                          : "focus:border-primary"
+                      }`}
+                    />
+                    {errors.pais && (
+                      <p className="text-sm text-red-500">{errors.pais}</p>
                     )}
                   </div>
 

@@ -30,6 +30,7 @@ export function FichaTecnicaModal({
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
+  const [pais, setPais] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -50,6 +51,7 @@ export function FichaTecnicaModal({
           apellido,
           email,
           telefono,
+          pais,
           productoNombre,
           fichaTecnicaUrl,
           fichaTecnicaNombre,
@@ -79,6 +81,7 @@ export function FichaTecnicaModal({
         setApellido("");
         setEmail("");
         setTelefono("");
+        setPais("");
         setIsSuccess(false);
         setError("");
       }, 200);
@@ -169,6 +172,15 @@ export function FichaTecnicaModal({
                   disabled={isLoading}
                   className="w-full"
                 />
+                <Input
+                  type="text"
+                  placeholder="País"
+                  value={pais}
+                  onChange={(e) => setPais(e.target.value)}
+                  required
+                  disabled={isLoading}
+                  className="w-full"
+                />
                 {error && (
                   <p className="text-sm text-red-500 mt-2">{error}</p>
                 )}
@@ -182,7 +194,7 @@ export function FichaTecnicaModal({
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" disabled={isLoading || !email || !nombre || !apellido || !telefono}>
+                <Button type="submit" disabled={isLoading || !email || !nombre || !apellido || !telefono || !pais}>
                   {isLoading ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />

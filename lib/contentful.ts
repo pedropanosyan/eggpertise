@@ -278,6 +278,38 @@ export interface ProductoCompleto {
   } | null;
 }
 
+const FABRICANTE_ORDER = [
+  "eggpertise-compostaje",
+  "jaulas",
+  "sistemas-de-jaulas",
+  "dacs",
+  "sime-tek",
+  "winterwarm",
+  "landmeco",
+];
+
+function getFabricanteOrderIndex(distributor: Distributor): number {
+  const slug = distributor.slug;
+  const normalizedName = generateSlug(distributor.nombre);
+  const orderIndex = FABRICANTE_ORDER.findIndex(
+    (orderedSlug) => orderedSlug === slug || orderedSlug === normalizedName
+  );
+
+  return orderIndex === -1 ? Number.MAX_SAFE_INTEGER : orderIndex;
+}
+
+function sortFabricantes(distributors: Distributor[]): Distributor[] {
+  return [...distributors].sort((a, b) => {
+    const orderDiff = getFabricanteOrderIndex(a) - getFabricanteOrderIndex(b);
+
+    if (orderDiff !== 0) {
+      return orderDiff;
+    }
+
+    return a.nombre.localeCompare(b.nombre, "es", { sensitivity: "base" });
+  });
+}
+
 // GraphQL parsing functions
 function parseDistributorFromGraphQL(
   item: FabricanteGraphQLResponse
@@ -388,7 +420,7 @@ export async function getFabricantes(): Promise<Distributor[]> {
     const response = await graphqlRequest(FABRICANTES_QUERY);
     const fabricantes = response.data.fabricanteCollection
       .items as FabricanteGraphQLResponse[];
-    return fabricantes.map(parseDistributorFromGraphQL);
+    return sortFabricantes(fabricantes.map(parseDistributorFromGraphQL));
   } catch (error) {
     console.error("Error fetching fabricantes:", error);
     return [];

@@ -10,10 +10,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { nombre, apellido, email, telefono, productoNombre, fichaTecnicaUrl, fichaTecnicaNombre } = body;
+    const { nombre, apellido, email, telefono, pais, productoNombre, fichaTecnicaUrl, fichaTecnicaNombre } = body;
 
     // Validate required fields
-    if (!nombre || !apellido || !email || !telefono || !productoNombre || !fichaTecnicaUrl || !fichaTecnicaNombre) {
+    if (!nombre || !apellido || !email || !telefono || !pais || !productoNombre || !fichaTecnicaUrl || !fichaTecnicaNombre) {
       return NextResponse.json(
         { error: "Todos los campos son requeridos" },
         { status: 400 }
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
       apellido,
       email,
       telefono,
+      pais,
       productoNombre,
       fichaTecnicaUrl: encodeURI(fichaTecnicaUrl),
       fichaTecnicaNombre,

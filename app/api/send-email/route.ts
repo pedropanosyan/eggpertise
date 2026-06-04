@@ -7,10 +7,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { nombre, email, empresa, mensaje } = body;
+    const { nombre, email, empresa, pais, mensaje } = body;
 
     // Validate required fields
-    if (!nombre || !email || !empresa || !mensaje) {
+    if (!nombre || !email || !empresa || !pais || !mensaje) {
       return NextResponse.json(
         { error: "Todos los campos son requeridos" },
         { status: 400 }
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       to: [process.env.CONTACT_EMAIL || "info@eggpertise.com"],
       replyTo: email,
       subject: `Nueva consulta de ${nombre} - ${empresa}`,
-      html: getContactFormEmailTemplate({ nombre, email, empresa, mensaje }),
+      html: getContactFormEmailTemplate({ nombre, email, empresa, pais, mensaje }),
     });
 
     return NextResponse.json(
