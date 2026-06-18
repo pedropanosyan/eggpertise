@@ -170,6 +170,50 @@ const PRODUCTOS_PRINCIPALES_QUERY = `
   }
 `;
 
+// GraphQL query for news/publications
+const NOTICIAS_QUERY = `
+  query GetNoticias {
+    noticiaCollection(limit: 6, order: fechaPublicacion_DESC) {
+      items {
+        sys { id }
+        titulo
+        slug
+        extracto
+        contenido {
+          json
+        }
+        imagenDestacada {
+          url
+        }
+        fechaPublicacion
+        autor
+      }
+    }
+  }
+`;
+
+// GraphQL query for single news by slug
+const NOTICIA_BY_SLUG_QUERY = `
+  query GetNoticiaBySlug($slug: String!) {
+    noticiaCollection(where: { slug: $slug }, limit: 1) {
+      items {
+        sys { id }
+        titulo
+        slug
+        extracto
+        contenido {
+          json
+        }
+        imagenDestacada {
+          url
+        }
+        fechaPublicacion
+        autor
+      }
+    }
+  }
+`;
+
 // GraphQL response types (raw data from Contentful)
 interface FabricanteGraphQLResponse {
   sys: { id: string };
@@ -223,6 +267,17 @@ interface ProductoCompleteGraphQLResponse {
   } | null;
 }
 
+interface NoticiaGraphQLResponse {
+  sys: { id: string };
+  titulo: string;
+  slug: string;
+  extracto: string;
+  contenido: { json: Document };
+  imagenDestacada: { url: string };
+  fechaPublicacion: string;
+  autor: string | null;
+}
+
 // Application types (processed data for the app)
 export interface Distributor {
   id: string;
@@ -240,6 +295,17 @@ export interface Producto {
   categoria: string | null;
   imagen_portada: string;
   logo_portada: string;
+}
+
+export interface Noticia {
+  id: string;
+  slug: string;
+  titulo: string;
+  extracto: string;
+  contenido: Document;
+  imagen_destacada: string;
+  fecha_publicacion: string;
+  autor: string | null;
 }
 
 export interface Fabricante {
@@ -332,6 +398,19 @@ function parseProductoFromGraphQL(item: ProductoGraphQLResponse): Producto {
     categoria: item.categoria,
     imagen_portada: item.portada.url,
     logo_portada: item.logoPortada?.url || item.portada.url,
+  };
+}
+
+function parseNoticiaFromGraphQL(item: NoticiaGraphQLResponse): Noticia {
+  return {
+    id: item.sys.id,
+    slug: item.slug || generateSlug(item.titulo),
+    titulo: item.titulo,
+    extracto: item.extracto,
+    contenido: item.contenido.json,
+    imagen_destacada: item.imagenDestacada.url,
+    fecha_publicacion: item.fechaPublicacion,
+    autor: item.autor,
   };
 }
 
@@ -533,5 +612,34 @@ export async function getProductosPrincipales(): Promise<Producto[]> {
   } catch (error) {
     console.error("Error fetching productos principales:", error);
     return [];
+  }
+}
+
+export async function getNoticias(): Promise<Noticia[]> {
+  try {
+    const response = await graphqlRequest(NOTICIAS_QUERY);
+    const noticias = response.data.noticiaCollection
+      .items as NoticiaGraphQLResponse[];
+    return noticias.map(parseNoticiaFromGraphQL);
+  } catch (error) {
+    console.error("Error fetching noticias:", error);
+    return [];
+  }
+}
+
+export async function getNoticiaBySlug(
+  slug: string
+): Promise<Noticia | null> {
+  try {
+    const response = await graphqlRequest(NOTICIA_BY_SLUG_QUERY, { slug });
+    const noticias = response.data.noticiaCollection
+      .items as NoticiaGraphQLResponse[];
+    if (noticias.length === 0) {
+      return null;
+    }
+    return parseNoticiaFromGraphQL(noticias[0]);
+  } catch (error) {
+    console.error("Error fetching noticia by slug:", error);
+    return null;
   }
 }

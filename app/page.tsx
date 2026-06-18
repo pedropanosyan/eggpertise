@@ -7,14 +7,16 @@ import { AchievementsBanner } from "@/components/achievements-banner";
 import { ServicesSection } from "@/components/services-section";
 import { DistributorsSection } from "@/components/distributors-section";
 import { ProductsSection } from "@/components/products-section";
+import { NewsSection } from "@/components/news-section";
 import { CtaBanner } from "@/components/cta-banner";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
-import { getFabricantes, getProductosPrincipales } from "@/lib/contentful";
+import { getFabricantes, getProductosPrincipales, getNoticias } from "@/lib/contentful";
 
 export default async function HomePage() {
   const distributors = await getFabricantes();
   const productosPrincipales = await getProductosPrincipales();
+  const noticias = await getNoticias();
 
   return (
     <main className="min-h-screen">
@@ -22,6 +24,7 @@ export default async function HomePage() {
       <HeroSection />
       <DistributorsSection distributors={distributors} />
       <ProductsSection productos={productosPrincipales} />
+      <NewsSection noticias={noticias} />
       <CtaBanner />
       <AboutSection />
       {/*<ServicesSection />*/}

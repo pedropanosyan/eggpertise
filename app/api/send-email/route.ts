@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { getContactFormEmailTemplate } from "@/lib/email-templates";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const SHEETBEST_ENDPOINT = process.env.SHEETBEST_ENDPOINT;
 
 export async function POST(request: Request) {
   try {
@@ -34,6 +35,24 @@ export async function POST(request: Request) {
       subject: `Nueva consulta de ${nombre} - ${empresa}`,
       html: getContactFormEmailTemplate({ nombre, email, empresa, pais, mensaje }),
     });
+
+    if (SHEETBEST_ENDPOINT) {
+      await fetch(SHEETBEST_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Nombre: nombre,
+          Email: email,
+          Empresa: empresa,
+          País: pais,
+          Mensaje: mensaje,
+          Fecha: new Date().toISOString(),
+          Estado: "Nuevo",
+          Fuente: "Formulario Web",
+          Notas: "",
+        }),
+      });
+    }
 
     return NextResponse.json(
       {

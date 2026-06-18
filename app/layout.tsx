@@ -5,6 +5,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Suspense } from "react";
 import { WhatsAppButton } from "@/components/whatsapp-button";
+import { GoogleTranslateProvider } from "@/components/google-translate";
 
 const lato = {
   variable: "--font-body",
@@ -83,6 +84,7 @@ export default function RootLayout({
           {children}
           <Analytics />
         </Suspense>
+        <GoogleTranslateProvider />
         <WhatsAppButton />
       </body>
     </html>

@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Logo from "@/public/brand/logo.png";
 import { usePathname, useRouter } from "next/navigation";
+import { GoogleTranslate } from "@/components/google-translate";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,16 +88,18 @@ export function Header() {
             </a>
           </nav>
 
-          {/* Desktop CTA */}
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              handleSmoothScroll(e as any, "contacto");
-            }}
-            className="hidden md:inline-flex cursor-pointer rounded-full px-6"
-          >
-            Contactanos
-          </Button>
+          <div className="hidden md:flex items-center gap-3">
+            <GoogleTranslate />
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                handleSmoothScroll(e as any, "contacto");
+              }}
+              className="cursor-pointer rounded-full px-6"
+            >
+              Contactanos
+            </Button>
+          </div>
           
 
           {/* Mobile menu button */}
@@ -167,6 +170,9 @@ export function Header() {
               >
                 Contacto
               </a>
+              <div className="px-3 py-2">
+                <GoogleTranslate />
+              </div>
               <div className="px-3 py-2">
                 <Button
                   onClick={(e) => {
