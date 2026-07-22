@@ -1,17 +1,26 @@
 /**
  * Lead capture endpoint for the EggPertise contact form.
  *
- * Deployed as a Google Apps Script Web App bound to the leads spreadsheet.
- * It replaces the former Sheet.Best integration.
+ * Deployed as a standalone Google Apps Script Web App. It replaces the former
+ * Sheet.Best integration.
+ *
+ * The script is deliberately standalone rather than bound to the spreadsheet:
+ * the leads file lives in an eggpertise.com Shared Drive, so a bound script
+ * would belong to that organisation and cannot be deployed from an external
+ * account. A standalone project is owned by the deploying account instead, and
+ * reaches the spreadsheet through openById.
  *
  * Setup:
- *   1. Open the spreadsheet > Extensions > Apps Script.
- *   2. Paste this file, then set SHARED_SECRET and SHEET_NAME below.
+ *   1. script.google.com > New project (do NOT create it from the spreadsheet).
+ *   2. Paste this file, then set SHARED_SECRET below.
  *   3. Deploy > New deployment > Web app.
  *        Execute as:       Me
  *        Who has access:   Anyone
  *   4. Copy the /exec URL into LEADS_SHEET_ENDPOINT, and the secret below into
  *      LEADS_SHEET_TOKEN, in .env and in the Vercel project settings.
+ *
+ * The deploying account needs write access to the spreadsheet, since the Web
+ * App runs as that account rather than as the visitor submitting the form.
  *
  * Note: Apps Script Web Apps always answer HTTP 200, even on failure, so the
  * caller must inspect the `ok` field of the JSON body rather than the status.
@@ -19,6 +28,9 @@
 
 // Must match LEADS_SHEET_TOKEN in the app environment.
 const SHARED_SECRET = "REPLACE_WITH_A_LONG_RANDOM_STRING";
+
+// Leads spreadsheet, taken from its URL: /spreadsheets/d/<ID>/edit
+const SPREADSHEET_ID = "1w_ZjMuc7X2wUQxedim-ZWo7qYnTxSx6LhP2uNEmxczA";
 
 // Tab that holds the leads. The Dashboard tab reads from it by formula.
 const SHEET_NAME = "Leads";
@@ -54,8 +66,10 @@ function doPost(e) {
  * inserting columns in the spreadsheet does not misalign the data.
  */
 function appendLead(payload) {
+  // openById rather than getActiveSpreadsheet: this project is standalone and
+  // has no container document to read from.
   const sheet =
-    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
+    SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
 
   if (!sheet) {
     throw new Error('Sheet "' + SHEET_NAME + '" not found');
