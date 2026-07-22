@@ -75,7 +75,7 @@ function appendLead(payload) {
     throw new Error('Sheet "' + SHEET_NAME + '" not found');
   }
 
-  // Serialises concurrent submissions so two leads cannot claim the same ID.
+  // Serialises concurrent submissions so two leads cannot claim the same slot.
   const lock = LockService.getScriptLock();
   lock.waitLock(30000);
 
@@ -84,13 +84,20 @@ function appendLead(payload) {
       .getRange(1, 1, 1, sheet.getLastColumn())
       .getValues()[0];
 
+    const idIndex = headers.indexOf(ID_COLUMN);
+
+    if (idIndex === -1) {
+      throw new Error('Column "' + ID_COLUMN + '" not found in header row');
+    }
+
+    const slot = findSlot(sheet, idIndex);
     const now = new Date();
 
-    const row = headers.map(function (header) {
+    const values = headers.map(function (header) {
       const key = String(header).trim();
 
       if (key === ID_COLUMN) {
-        return nextId(sheet, headers);
+        return slot.nextId;
       }
 
       // A real Date object, not an ISO string: the Dashboard groups leads by
@@ -110,32 +117,44 @@ function appendLead(payload) {
         : "";
     });
 
-    sheet.appendRow(row);
+    sheet.getRange(slot.row, 1, 1, values.length).setValues([values]);
   } finally {
     lock.releaseLock();
   }
 }
 
 /**
- * Returns the next correlative ID, continuing from the highest one present.
- * Falls back to the row count when the column holds no usable numbers.
+ * Finds the first free row and the next correlative ID in a single pass over
+ * the ID column.
+ *
+ * appendRow is deliberately avoided: the sheet carries hundreds of
+ * pre-formatted empty rows, which getLastRow counts as used, so appended leads
+ * land far below the real data instead of on the next free line.
  */
-function nextId(sheet, headers) {
-  const idIndex = headers.indexOf(ID_COLUMN);
-  const lastRow = sheet.getLastRow();
+function findSlot(sheet, idIndex) {
+  const maxRows = sheet.getMaxRows();
+  const values = sheet.getRange(2, idIndex + 1, maxRows - 1, 1).getValues();
 
-  if (idIndex === -1 || lastRow < 2) {
-    return 1;
+  var row = 0;
+  var highestId = 0;
+
+  for (var i = 0; i < values.length; i++) {
+    const cell = values[i][0];
+
+    if (cell === "" || cell === null) {
+      if (row === 0) {
+        row = i + 2;
+      }
+      continue;
+    }
+
+    const parsed = Number(cell);
+    if (isFinite(parsed) && parsed > highestId) {
+      highestId = parsed;
+    }
   }
 
-  const values = sheet.getRange(2, idIndex + 1, lastRow - 1, 1).getValues();
-
-  const highest = values.reduce(function (max, cell) {
-    const value = Number(cell[0]);
-    return isFinite(value) && value > max ? value : max;
-  }, 0);
-
-  return highest + 1;
+  return { row: row || maxRows + 1, nextId: highestId + 1 };
 }
 
 function jsonResponse(body) {
