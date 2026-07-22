@@ -178,6 +178,7 @@ const NOTICIAS_QUERY = `
         sys { id }
         titulo
         slug
+        url
         extracto
         contenido {
           json
@@ -200,6 +201,7 @@ const NOTICIA_BY_SLUG_QUERY = `
         sys { id }
         titulo
         slug
+        url
         extracto
         contenido {
           json
@@ -271,6 +273,7 @@ interface NoticiaGraphQLResponse {
   sys: { id: string };
   titulo: string;
   slug: string;
+  url: string | null;
   extracto: string;
   contenido: { json: Document };
   imagenDestacada: { url: string };
@@ -300,6 +303,7 @@ export interface Producto {
 export interface Noticia {
   id: string;
   slug: string;
+  url: string | null;
   titulo: string;
   extracto: string;
   contenido: Document;
@@ -405,6 +409,7 @@ function parseNoticiaFromGraphQL(item: NoticiaGraphQLResponse): Noticia {
   return {
     id: item.sys.id,
     slug: item.slug || generateSlug(item.titulo),
+    url: item.url || null,
     titulo: item.titulo,
     extracto: item.extracto,
     contenido: item.contenido.json,

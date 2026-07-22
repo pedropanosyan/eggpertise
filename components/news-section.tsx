@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { Noticia } from "@/lib/contentful";
-import { Calendar, User } from "lucide-react";
+import { Calendar, User, ExternalLink } from "lucide-react";
 
 interface NewsSectionProps {
   noticias: Noticia[];
@@ -16,6 +16,70 @@ function formatDate(dateString: string): string {
     month: "long",
     day: "numeric",
   });
+}
+
+function NewsCard({ noticia }: { noticia: Noticia }) {
+  const href = noticia.url || `/noticias/${noticia.slug}`;
+  const isExternal = Boolean(noticia.url);
+
+  return (
+    <Card className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col">
+      <div className="relative h-48 overflow-hidden">
+        <Image
+          src={noticia.imagen_destacada}
+          alt={noticia.titulo}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+
+      <CardHeader className="pb-2">
+        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+          <span className="flex items-center gap-1">
+            <Calendar className="w-4 h-4" />
+            {formatDate(noticia.fecha_publicacion)}
+          </span>
+          {noticia.autor && (
+            <span className="flex items-center gap-1">
+              <User className="w-4 h-4" />
+              {noticia.autor}
+            </span>
+          )}
+        </div>
+        <CardTitle className="text-xl font-serif font-bold text-foreground line-clamp-2">
+          {noticia.titulo}
+        </CardTitle>
+      </CardHeader>
+
+      <CardContent className="px-6 pb-4 flex flex-col flex-grow">
+        <p className="text-foreground/80 text-left leading-relaxed mb-4 text-base flex-grow line-clamp-3">
+          {noticia.extracto}
+        </p>
+
+        {isExternal ? (
+          <Button
+            asChild
+            variant="outline"
+            className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm"
+          >
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              Leer más <ExternalLink className="w-4 h-4 ml-2" />
+            </a>
+          </Button>
+        ) : (
+          <Button
+            asChild
+            variant="outline"
+            className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm"
+          >
+            <Link href={href}>
+              Leer más
+            </Link>
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  );
 }
 
 export function NewsSection({ noticias }: NewsSectionProps) {
@@ -48,53 +112,7 @@ export function NewsSection({ noticias }: NewsSectionProps) {
         {noticias.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {noticias.map((noticia) => (
-              <Card
-                key={noticia.id}
-                className="bg-white/10 backdrop-blur-md border border-white/20 group overflow-hidden p-0 flex flex-col"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={noticia.imagen_destacada}
-                    alt={noticia.titulo}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-
-                <CardHeader className="pb-2">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      {formatDate(noticia.fecha_publicacion)}
-                    </span>
-                    {noticia.autor && (
-                      <span className="flex items-center gap-1">
-                        <User className="w-4 h-4" />
-                        {noticia.autor}
-                      </span>
-                    )}
-                  </div>
-                  <CardTitle className="text-xl font-serif font-bold text-foreground line-clamp-2">
-                    {noticia.titulo}
-                  </CardTitle>
-                </CardHeader>
-
-                <CardContent className="px-6 pb-4 flex flex-col flex-grow">
-                  <p className="text-foreground/80 text-left leading-relaxed mb-4 text-base flex-grow line-clamp-3">
-                    {noticia.extracto}
-                  </p>
-
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="w-full border-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm"
-                  >
-                    <Link href={`/noticias/${noticia.slug}`}>
-                      Leer más
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+              <NewsCard key={noticia.id} noticia={noticia} />
             ))}
           </div>
         ) : (
