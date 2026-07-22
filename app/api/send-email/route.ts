@@ -44,6 +44,8 @@ export async function POST(request: Request) {
         const sheetResponse = await fetch(LEADS_SHEET_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          // Keys must match the spreadsheet header row exactly. The ID and
+          // date columns are derived by the script, not sent from here.
           body: JSON.stringify({
             token: LEADS_SHEET_TOKEN,
             Nombre: nombre,
@@ -51,10 +53,9 @@ export async function POST(request: Request) {
             Empresa: empresa,
             País: pais,
             Mensaje: mensaje,
-            Fecha: new Date().toISOString(),
             Estado: "Nuevo",
             Fuente: "Formulario Web",
-            Notas: "",
+            Notas: "Generado automáticamente desde eggpertise.com",
           }),
         });
 
