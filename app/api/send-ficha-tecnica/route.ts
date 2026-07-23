@@ -4,6 +4,7 @@ import {
   getFichaTecnicaNotificationTemplate,
   getFichaTecnicaUserTemplate,
 } from "@/lib/email-templates";
+import { syncLeadToSpreadsheet } from "@/lib/leads-sheet";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -54,6 +55,15 @@ export async function POST(request: Request) {
       to: [email],
       subject: `Ficha Técnica - ${productoNombre}`,
       html: getFichaTecnicaUserTemplate(templateData),
+    });
+
+    await syncLeadToSpreadsheet({
+      nombre: `${nombre} ${apellido}`,
+      email,
+      pais,
+      telefono,
+      mensaje: `Descarga de ficha técnica: ${productoNombre}`,
+      fuente: "Descarga Ficha Técnica",
     });
 
     return NextResponse.json(

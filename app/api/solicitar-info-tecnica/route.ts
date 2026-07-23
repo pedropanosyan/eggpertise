@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { syncLeadToSpreadsheet } from "@/lib/leads-sheet";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -55,6 +56,15 @@ export async function POST(request: Request) {
           </body>
         </html>
       `,
+    });
+
+    await syncLeadToSpreadsheet({
+      email,
+      empresa,
+      pais,
+      telefono,
+      mensaje: `Solicitud de información técnica sobre ${productoNombre}`,
+      fuente: "Solicitud Info Técnica",
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
