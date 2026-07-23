@@ -126,7 +126,16 @@ export function ContactSection() {
         <Card className="border-0 p-0 bg-white/90 backdrop-blur-md shadow-lg rounded-lg overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-3 min-h-[450px]">
             {/* Contact Form */}
-            <div className="col-span-1 lg:col-span-2 p-8 flex flex-col justify-center">
+            {/*
+              `notranslate` is required, not cosmetic: Google Translate rewrites
+              text nodes in place, and the isSubmitted swap below then makes
+              React's insertBefore fail against a DOM it no longer recognises,
+              crashing the whole page.
+            */}
+            <div
+              className="notranslate col-span-1 lg:col-span-2 p-8 flex flex-col justify-center"
+              translate="no"
+            >
               {isSubmitted ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">

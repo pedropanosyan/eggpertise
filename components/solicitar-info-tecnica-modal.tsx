@@ -78,7 +78,13 @@ export function SolicitarInfoTecnicaModal({
           Solicitar Información Técnica
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      {/*
+        `notranslate` is required, not cosmetic: Google Translate rewrites text
+        nodes in place, and the isSuccess swap below then makes React's
+        insertBefore fail against a DOM it no longer recognises, crashing the
+        whole page. Excluding this subtree keeps the reconciliation safe.
+      */}
+      <DialogContent className="notranslate sm:max-w-md" translate="no">
         {isSuccess ? (
           <>
             <DialogHeader>
