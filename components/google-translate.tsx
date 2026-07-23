@@ -28,38 +28,61 @@ declare global {
   }
 }
 
+const PAGE_LANGUAGE = "es";
+const COOKIE_NAME = "googtrans";
+const FAR_FUTURE = "expires=Fri, 31 Dec 9999 23:59:59 GMT";
+const EPOCH = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+/**
+ * Google Translate writes its cookie on the parent domain (.eggpertise.com)
+ * while the widget below writes it on the exact host. Every scope has to be
+ * covered, otherwise a stale cookie keeps the page translated.
+ */
+function cookieScopes() {
+  const host = window.location.hostname;
+  if (!host.includes(".")) return [""];
+
+  const scopes = ["", `domain=${host}; `];
+  const parts = host.split(".");
+  for (let i = 1; i <= parts.length - 2; i++) {
+    scopes.push(`domain=.${parts.slice(i).join(".")}; `);
+  }
+  return scopes;
+}
+
+function clearTranslationCookie() {
+  for (const scope of cookieScopes()) {
+    document.cookie = `${COOKIE_NAME}=; ${scope}path=/; ${EPOCH}`;
+  }
+}
+
+function setTranslationCookie(target: string) {
+  for (const scope of cookieScopes()) {
+    document.cookie = `${COOKIE_NAME}=/${PAGE_LANGUAGE}/${target}; ${scope}path=/; ${FAR_FUTURE}`;
+  }
+}
+
 export function GoogleTranslate() {
   const [language, setLanguage] = useState<"es" | "pt" | "en">("es");
 
   useEffect(() => {
-    const match = document.cookie.match(/(?:^|; )googtrans=\/es\/([^;]+)/);
+    const match = document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/);
     if (match?.[1] === "pt" || match?.[1] === "en") {
       setLanguage(match[1]);
-      return;
-    }
-
-    const browserLanguage = navigator.language.toLowerCase();
-    if (browserLanguage.startsWith("pt")) {
-      setLanguage("pt");
-    } else if (browserLanguage.startsWith("en")) {
-      setLanguage("en");
     }
   }, []);
 
   const changeLanguage = (nextLanguage: "es" | "pt" | "en") => {
-    const value = `/es/${nextLanguage}`;
-    const expires = "expires=Fri, 31 Dec 9999 23:59:59 GMT";
-
-    document.cookie = `googtrans=${value}; path=/; ${expires}`;
-    if (window.location.hostname.includes(".")) {
-      document.cookie = `googtrans=${value}; domain=${window.location.hostname}; path=/; ${expires}`;
+    clearTranslationCookie();
+    if (nextLanguage !== PAGE_LANGUAGE) {
+      setTranslationCookie(nextLanguage);
     }
     setLanguage(nextLanguage);
     window.location.reload();
   };
 
   return (
-    <label className="relative inline-flex h-9 items-center">
+    <label className="notranslate relative inline-flex h-9 items-center" translate="no">
       <span className="sr-only">Idioma</span>
       <Globe2 className="pointer-events-none absolute left-3 h-4 w-4 text-foreground" />
       <select
